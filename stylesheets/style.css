@@ -1,25 +1,25 @@
 @media (min-width: 320px) and (max-width: 480px) {
   body {
-    font-size: 0.6rem;
+    font-size: 0.7rem;
   }
   .svg-sizer {
     width: 35px;
     height: 35px;
   }
   .section-home {
-    margin: 20em 0 27em 0;
-    scroll-margin-top: 27em;
+    margin: 25em 0 30em 0;
+    scroll-margin-top: 35em;
   }
   .section-work {
-    margin: 20em 0 28em 0;
-    scroll-margin-top: 27em;
+    margin: 25em 0 30em 0;
+    scroll-margin-top: 31em;
   }
   .section-about {
-    margin: 20em 0 20em 0;
-    scroll-margin-top: 23em;
+    margin: 22em 0 22em 0;
+    scroll-margin-top: 27em;
   }
   .section-contact {
-    margin: 20em 0 22em 0;
+    margin: 25em 0 25em 0;
     scroll-margin-top: 22em;
   }
 }

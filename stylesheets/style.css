@@ -6,6 +6,22 @@
     width: 35px;
     height: 35px;
   }
+  .section-home {
+    margin: 20em 0 27em 0;
+    scroll-margin-top: 27em;
+  }
+  .section-work {
+    margin: 20em 0 28em 0;
+    scroll-margin-top: 27em;
+  }
+  .section-about {
+    margin: 20em 0 20em 0;
+    scroll-margin-top: 23em;
+  }
+  .section-contact {
+    margin: 20em 0 22em 0;
+    scroll-margin-top: 22em;
+  }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
@@ -16,6 +32,22 @@
     width: 40px;
     height: 40px;
   }
+  .section-home {
+    margin: 20em 0 27em 0;
+    scroll-margin-top: 27em;
+  }
+  .section-work {
+    margin: 20em 0 27em 0;
+    scroll-margin-top: 26em;
+  }
+  .section-about {
+    margin: 20em 0 20em 0;
+    scroll-margin-top: 23em;
+  }
+  .section-contact {
+    margin: 20em 0 22em 0;
+    scroll-margin-top: 22em;
+  }
 }
 @media (min-width: 769px) and (max-width: 1024px) {
   body {
@@ -24,6 +56,22 @@
   .svg-sizer {
     width: 43px;
     height: 43px;
+  }
+  .section-home {
+    margin: 20em 0 27em 0;
+    scroll-margin-top: 27em;
+  }
+  .section-work {
+    margin: 20em 0 27em 0;
+    scroll-margin-top: 26em;
+  }
+  .section-about {
+    margin: 20em 0 20em 0;
+    scroll-margin-top: 23em;
+  }
+  .section-contact {
+    margin: 20em 0 22em 0;
+    scroll-margin-top: 22em;
   }
 }
 @media (min-width: 1025px) and (max-width: 1200px) {
@@ -34,6 +82,22 @@
     width: 45px;
     height: 45px;
   }
+  .section-home {
+    margin: 20em 0 27em 0;
+    scroll-margin-top: 27em;
+  }
+  .section-work {
+    margin: 20em 0 27em 0;
+    scroll-margin-top: 26em;
+  }
+  .section-about {
+    margin: 20em 0 20em 0;
+    scroll-margin-top: 23em;
+  }
+  .section-contact {
+    margin: 20em 0 22em 0;
+    scroll-margin-top: 22em;
+  }
 }
 
 @media (min-width: 1201px) {
@@ -43,6 +107,22 @@
   .svg-sizer {
     width: 50px;
     height: 50px;
+  }
+  .section-home {
+    margin: 2em 0 16em 0;
+    scroll-margin-top: 9em;
+  }
+  .section-work {
+    margin: 6em 0 17em 0;
+    scroll-margin-top: 12em;
+  }
+  .section-about {
+    margin: 6em 0 13em 0;
+    scroll-margin-top: 8em;
+  }
+  .section-contact {
+    margin: 12em 0 12em 0;
+    scroll-margin-top: 6em;
   }
 }
 
@@ -69,15 +149,15 @@ button {
   border-style: none;
 }
 
-h1{
+h1 {
   font-size: 3em;
 }
 
-h2{
+h2 {
   font-size: 2em;
 }
 
-p{
+p {
   font-size: 1.5em;
 }
 
@@ -103,7 +183,7 @@ p{
   fill: #395b64;
 }
 
-.borderline{
+.borderline {
   position: relative;
   margin: auto;
   height: 2px;
@@ -144,7 +224,7 @@ p{
   width: 100%;
   background-color: inherit;
 }
-
+/* 
 .section-home {
   margin: 2em 0 16em 0;
   scroll-margin-top: 9em;
@@ -160,9 +240,9 @@ p{
 .section-contact {
   margin: 12em 0 12em 0;
   scroll-margin-top: 6em;
-}
+} */
 
-.section-c{
+.section-c {
   display: flex;
   justify-content: center;
   width: 100%;

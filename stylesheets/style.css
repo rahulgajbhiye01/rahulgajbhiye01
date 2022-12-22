@@ -166,14 +166,17 @@ button {
 
 #lightbulb:hover {
   transform: scale(1.2);
+  transition: all 0.2s ease-in-out;
 }
 
 .lightbulb-darkmode:hover {
   filter: drop-shadow(0px 4px 8px #395b64);
+  transition: all 0.2s ease-in-out;
 }
 
 .lightbulb-lightmode:hover {
   filter: drop-shadow(0px 4px 8px #a5c9ca);
+  transition: all 0.2s ease-in-out;
 }
 
 @media (min-width: 481px) and (max-width: 768px) {

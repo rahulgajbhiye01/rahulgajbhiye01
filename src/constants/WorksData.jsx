@@ -1,7 +1,7 @@
 const WorksData = [
   {
     scope: "Featured",
-    img: require("src/assets/linktree.png"),
+    img: new URL("../assets/linktree.png", import.meta.url).href,
     project_name: "Personalized Linktree",
     git_link: "https://github.com/rahulgajbhiye201/links.rahulgajbhiye",
     details:

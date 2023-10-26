@@ -1,7 +1,7 @@
 const WorksData = [
   {
     scope: "Featured",
-    img: "src/assets/linktree.png",
+    img: require("src/assets/linktree.png"),
     project_name: "Personalized Linktree",
     git_link: "https://github.com/rahulgajbhiye201/links.rahulgajbhiye",
     details:
@@ -10,7 +10,7 @@ const WorksData = [
   {
     scope: "Featured",
     project_name: "Next Project",
-    git_link: "https://github.com",
+    git_link: "https://github.com/rahulgajbhiye201",
     details: "",
   },
 ];

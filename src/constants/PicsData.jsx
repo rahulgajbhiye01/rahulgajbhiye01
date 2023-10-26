@@ -1,6 +1,6 @@
 const PicsData = [
   {
-    src: "src/assets/rahul.jpg",
+    src: require("src/assets/rahul.jpg"),
     alt: "Rahul Gajbhiye",
   },
 ];

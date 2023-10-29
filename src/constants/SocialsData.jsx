@@ -14,6 +14,17 @@ const SocialMediaData = [
     icon: <FaGithub />,
   },
   {
+    id: 3,
+    href: "https://www.linkedin.com/in/rahulgajbhiye201",
+    icon: <FaLinkedin />,
+  },
+
+  {
+    id: 4,
+    href: "https://twitter.com/rahulgajbhiye01",
+    icon: <FaTwitter />,
+  },
+  {
     id: 1,
     href: "https://www.youtube.com/@rcodedev",
     icon: <FaYoutube />,
@@ -24,18 +35,8 @@ const SocialMediaData = [
     icon: <FaInstagram />,
   },
   {
-    id: 3,
-    href: "https://www.linkedin.com/in/rahulgajbhiye201",
-    icon: <FaLinkedin />,
-  },
-  {
-    id: 4,
-    href: "https://twitter.com/rahulgajbhiye01",
-    icon: <FaTwitter />,
-  },
-  {
     id: 7,
-    href: "https://discord.gg/nQZaVKzahT",
+    href: "https://discord.gg/EVmkuUXTYM",
     icon: <FaDiscord />,
   },
 ];

@@ -1,12 +1,7 @@
-import { HomeHero, Works } from "@containers";
+import { HomeHero } from "@containers";
 
 const Home = () => {
-  return (
-    <>
-      <HomeHero />
-      <Works />
-    </>
-  );
+  return <HomeHero />;
 };
 
 export default Home;

@@ -1,3 +1,7 @@
 export default function Blog() {
-  return <div>asdasd</div>;
+  return (
+    <section className="flex min-h-screen items-center justify-center xl:snap-start">
+      asdasd
+    </section>
+  );
 }

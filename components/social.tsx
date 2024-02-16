@@ -1,23 +1,36 @@
-import socialData from "./constants/socialSet";
+"use client";
 
-const Social = () => {
+import socialData from "../constants/socialData";
+import { cn } from "@/lib/utils";
+
+type social = {
+  name: string;
+  childClass: string;
+  textNameClass: string;
+  iconNameClass: string;
+};
+
+const Social: React.FC<social> = (props) => {
+  const { name, childClass, textNameClass, iconNameClass } = props;
+  const filteredSocial = socialData.filter((item) => item.name === name);
+
   return (
-    <div className="m-4 flex justify-center gap-2 lg:col-start-1 lg:col-end-2 lg:m-0 lg:flex-col lg:justify-start xl:gap-4 xl:py-24 2xl:gap-6 2xl:py-36">
-      {socialData.map((item) => {
+    <>
+      {filteredSocial.map((item) => {
         return (
           <a
             key={item.link}
             href={item.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-0.5 xl:text-lg 2xl:text-2xl"
+            className={cn("flex items-center justify-center gap-2", childClass)}
           >
-            {item.icon}
-            {item.name}
+            <span className={cn(textNameClass)}>{item.name}</span>
+            <span className={cn(iconNameClass)}>{item.icon}</span>
           </a>
         );
       })}
-    </div>
+    </>
   );
 };
 

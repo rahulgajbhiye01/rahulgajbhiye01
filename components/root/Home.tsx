@@ -9,7 +9,7 @@ export default function Home() {
       <div className="flex w-full items-center justify-center md:py-52">
         <div className="flex flex-col gap-4 xl:gap-8">
           <h1 className="text-3xl font-bold md:text-3xl lg:text-4xl xl:text-3xl 2xl:text-6xl">
-            I'm a Web & Software <br />
+            I&apos;m a Web & Software <br />
             Developer from India.
           </h1>
           <div className="flex flex-col gap-4 xl:gap-8">

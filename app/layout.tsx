@@ -4,6 +4,7 @@ import Navbar from "@/components/navbar";
 export const metadata: Metadata = {
   title: "Rahul Gajbhiye",
   description: "Portfolio Website of Rahul Gajbhiye",
+  icons: "/monster.svg",
 };
 import { Toaster } from "@/components/ui/toaster";
 

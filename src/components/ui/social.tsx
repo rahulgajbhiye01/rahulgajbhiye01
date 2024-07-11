@@ -7,21 +7,21 @@ import { ISocial } from "@/types";
 
 type Props = {
   socialsData: ISocial[];
-  varient: string;
+  variant: string;
   name: string;
 };
 
-const Social = ({ socialsData, name, varient }: Props) => {
+const Social = ({ socialsData, name, variant: variant }: Props) => {
   const filteredSocial = socialsData.filter((item) => item.name === name);
   let childClass: string = "";
   let textNameClass: string = "";
   let iconNameClass: string = "";
 
-  if (varient === "home") {
+  if (variant === "home") {
     childClass = "";
     textNameClass = "text-md";
     iconNameClass = "text-lg";
-  } else if (varient === "contact") {
+  } else if (variant === "contact") {
     childClass = "";
     textNameClass = "text-md";
     iconNameClass = "text-lg";

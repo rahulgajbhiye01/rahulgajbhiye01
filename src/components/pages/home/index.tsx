@@ -28,10 +28,10 @@ const Home = ({ socialsData }: Props) => {
       </div>
       <div className="absolute right-4 hidden md:flex md:items-center">
         <div className="flex flex-col items-end gap-2 lg:gap-4">
-          <Socials socialsData={socialsData} varient="home" name="Github" />
-          <Socials socialsData={socialsData} varient="home" name="LinkedIn" />
-          <Socials socialsData={socialsData} varient="home" name="Twitter" />
-          <Socials socialsData={socialsData} varient="home" name="Resume" />
+          <Socials socialsData={socialsData} variant="home" name="Github" />
+          <Socials socialsData={socialsData} variant="home" name="LinkedIn" />
+          <Socials socialsData={socialsData} variant="home" name="Twitter" />
+          <Socials socialsData={socialsData} variant="home" name="Resume" />
         </div>
       </div>
     </section>

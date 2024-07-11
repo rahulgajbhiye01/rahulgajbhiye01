@@ -11,10 +11,10 @@ export default async function DashboardSocials(props: Props) {
       <SocialsEditor />
       <div className="grid auto-rows-min gap-2 text-center">
         <span className="text-xl">Socials</span>
-        <Social socialsData={socialsData} varient="home" name="Github" />
-        <Social socialsData={socialsData} varient="home" name="LinkedIn" />
-        <Social socialsData={socialsData} varient="home" name="Twitter" />
-        <Social socialsData={socialsData} varient="home" name="Resume" />
+        <Social socialsData={socialsData} variant="home" name="Github" />
+        <Social socialsData={socialsData} variant="home" name="LinkedIn" />
+        <Social socialsData={socialsData} variant="home" name="Twitter" />
+        <Social socialsData={socialsData} variant="home" name="Resume" />
       </div>
     </>
   );

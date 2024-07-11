@@ -1,6 +1,6 @@
 import Skills from "@/components/pages/shared/skills";
 import { getSkillsData } from "@/lib/db/db-helper";
-import SkillsEditor from "@/components/pages/dashboard-1/skills";
+import SkillsEditor from "@/components/pages/dashboard/skills";
 
 type Props = {};
 

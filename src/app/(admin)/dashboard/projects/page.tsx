@@ -1,5 +1,5 @@
 import { getProjectsData } from "@/lib/db/db-helper";
-import ProjectsEditor from "@/components/pages/dashboard-1/projects";
+import ProjectsEditor from "@/components/pages/dashboard/projects";
 import Projects from "@/components/pages/projects";
 
 export default async function DashboardProjects() {

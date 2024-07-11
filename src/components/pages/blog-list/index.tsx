@@ -1,5 +1,5 @@
 "use client";
-
+import { revalidatePath } from 'next/cache'
 import Link from "next/link";
 import { useTimeAgo } from "next-timeago";
 import { FaPlus } from "react-icons/fa6";
@@ -14,6 +14,8 @@ const BlogList = (props: allBlogs) => {
   const allBlogs = props.allBlogs;
   const base = props.base;
   const { TimeAgo } = useTimeAgo();
+  revalidatePath('/blogs')
+  revalidatePath('/dashboard/blogs')
   return (
     <div className="grid w-11/12 grid-flow-row items-center gap-8 md:w-6/12">
       {base === "dashboard" ? (

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+
 import Link from "next/link";
 import { useTimeAgo } from "next-timeago";
 import { FaPlus } from "react-icons/fa6";
@@ -10,7 +10,7 @@ interface allBlogs {
   allBlogs: Array<IBlog>;
 }
 
-const FcBlogs = (props: allBlogs) => {
+const BlogList = (props: allBlogs) => {
   const allBlogs = props.allBlogs;
   const base = props.base;
   const { TimeAgo } = useTimeAgo();
@@ -34,19 +34,18 @@ const FcBlogs = (props: allBlogs) => {
             key={item.id}
             href={`/${base}${base === "dashboard" ? "/blogs" : ""}/${item.indexedTitle}`}
           >
-            <div className="flex flex-col gap-8 p-4 md:flex-row">
-              <div className="aspect-video overflow-hidden md:block">
+            <div className="flex flex-col gap-4 p-4 md:flex-row md:gap-8">
+              <div className="aspect-video max-w-full overflow-clip">
                 <img
                   src={item.imageUrl ?? ""}
                   alt={item.title ?? ""}
-                  className="max-h-72 max-w-72 md:max-h-96 md:max-w-96"
-                  width={384}
                   height={384}
+                  width={384}
                 />
               </div>
 
               <div className="flex w-11/12 flex-col gap-2">
-                <div className="flex flex-row gap-2">
+                <div className="flex flex-row items-center gap-2 text-base font-medium">
                   <span className="font-medium">
                     <TimeAgo date={item.publishedOn ?? "2001-01-20"} />
                   </span>
@@ -54,7 +53,7 @@ const FcBlogs = (props: allBlogs) => {
                   <span>{item.keywords}</span>
                 </div>
 
-                <div className="text-4xl font-bold text-black hover:underline">
+                <div className="text-2xl font-bold text-black hover:underline md:text-4xl">
                   {item.title}
                 </div>
               </div>
@@ -66,4 +65,4 @@ const FcBlogs = (props: allBlogs) => {
   );
 };
 
-export default FcBlogs;
+export default BlogList;

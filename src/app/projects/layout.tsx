@@ -10,7 +10,7 @@ export default function ProjectsPageLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="min-h-custom flex w-full scroll-mt-16 flex-col items-center py-8">
+    <section className="flex min-h-custom w-full flex-col items-center">
       {children}
     </section>
   );

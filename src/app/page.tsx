@@ -1,5 +1,7 @@
-import FcHome from "@/components/pages/Sections/home";
-import FcFeaturedProjectsSkills from "@/components/pages/Sections/featured-projects-skills";
+import Home from "@/components/pages/home";
+import FeaturedProjectsSkills from "@/components/pages/home/featured-projects-skills";
+import About from "@/components/pages/home/about";
+
 import {
   getSkillsData,
   getProjectsData,
@@ -13,13 +15,12 @@ export default async function Root() {
 
   return (
     <div className="w-full">
-      {/* {Hero Section} */}
-      <FcHome socialsData={socialsData} />
-      {/* {Featured Projects} */}
-      <FcFeaturedProjectsSkills
-        projectData={projectData}
-        skillData={skillData}
-      />
+      {/* Hero Section */}
+      <Home socialsData={socialsData} />
+      {/* Featured Projects */}
+      <FeaturedProjectsSkills projectData={projectData} skillData={skillData} />
+      {/* About */}
+      {/* <About /> */}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-// InitializedMDXEditor.tsx
+
 import type { ForwardedRef } from "react";
 
 import {
@@ -8,7 +8,7 @@ import {
   type MDXEditorProps,
 } from "@mdxeditor/editor";
 
-import { ALL_PLUGINS } from "@/components/pages/MDXEditor/plugins";
+import { ALL_PLUGINS } from "@/components/pages/blog-editor/mdx-editor/plugins";
 
 // Only import this to the next file
 export default function InitializedMDXEditor({
@@ -18,8 +18,11 @@ export default function InitializedMDXEditor({
   editorRef: ForwardedRef<MDXEditorMethods> | null;
 } & MDXEditorProps) {
   return (
-    <>
-      <MDXEditor plugins={ALL_PLUGINS} {...props} ref={editorRef} />
-    </>
+    <MDXEditor
+      plugins={ALL_PLUGINS}
+      {...props}
+      ref={editorRef}
+      contentEditableClassName="markdown"
+    />
   );
 }

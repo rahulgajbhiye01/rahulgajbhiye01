@@ -81,7 +81,61 @@
   }
 }
 
-._primaryButton_yms4a_506,
-._secondaryButton_yms4a_507 {
-  color: black;
+.prose {
+  @apply xl:min-w-[100ch];
+}
+
+/* Editor Content */
+.mdxeditor {
+  @apply flex flex-col items-center;
+}
+
+.mdxeditor-toolbar {
+  overflow: auto;
+  @apply w-full overflow-auto;
+}
+
+/* Markdown Styles */
+.youtube {
+  @apply aspect-video w-2/3;
+}
+
+.markdown li {
+  @apply list-disc;
+}
+
+.markdown a {
+  @apply underline-offset-4 hover:no-underline;
+}
+
+/* Markdown Table */
+.markdown table {
+  @apply w-fit;
+}
+
+.markdown td {
+  @apply w-fit max-w-sm text-wrap break-words break-all p-2 text-base;
+}
+
+.markdown th {
+  @apply bg-gray-200 p-1;
+}
+
+.markdown tr:nth-child(2n) {
+  @apply bg-zinc-100;
+}
+.markdown caption {
+}
+.markdown colgroup {
+}
+.markdown col {
+}
+.markdown thead {
+}
+.markdown tbody {
+}
+.markdown tfoot {
+}
+.markdown code {
+  @apply text-sm;
 }

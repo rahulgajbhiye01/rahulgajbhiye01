@@ -1,4 +1,4 @@
-import FcBlogEditor from "@/components/pages/BlogEditor";
+import FcBlogEditor from "@/components/pages/blog-editor";
 import { frontMatter } from "@/configs/frontMatter";
 
 export default async function BlogPage() {

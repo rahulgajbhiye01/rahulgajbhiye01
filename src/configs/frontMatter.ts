@@ -5,7 +5,6 @@ author: 'Rahul Gajbhiye'
 category: ''
 keywords: ''
 title: ''
-indexedTitle: ''
 imageUrl: ''
 ---
 New Blog`,

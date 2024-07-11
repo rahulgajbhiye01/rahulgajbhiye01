@@ -1,5 +1,5 @@
 import { readBlog } from "@/lib/server/actions/blog";
-import FcBlogEditor from "@/components/pages/BlogEditor";
+import BlogEditor from "@/components/pages/blog-editor";
 
 export default async function BlogPage({
   params,
@@ -12,6 +12,6 @@ export default async function BlogPage({
   if (fetchBlog) {
     const { rawBlogData } = fetchBlog;
     if (rawBlogData)
-      return <FcBlogEditor blogId={blogId} rawBlogData={rawBlogData} />;
+      return <BlogEditor blogId={blogId} rawBlogData={rawBlogData} />;
   }
 }

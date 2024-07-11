@@ -1,4 +1,4 @@
-import Login from "@/components/pages/Dashboard/login";
+import Login from "@/components/pages/dashboard/login";
 
 export default async function LoginPage() {
   return (

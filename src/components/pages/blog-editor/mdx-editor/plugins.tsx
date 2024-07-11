@@ -1,5 +1,8 @@
 "use client";
 import React from "react";
+import { MdOutlineDeleteForever } from "react-icons/md";
+import { FaYoutube } from "react-icons/fa6";
+
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { LeafDirective } from "mdast-util-directive";
 import {
@@ -23,7 +26,12 @@ import {
   codeMirrorPlugin,
   sandpackPlugin,
   KitchenSinkToolbar,
+  DialogButton,
+  insertDirective$,
+  usePublisher,
 } from "@mdxeditor/editor";
+
+import { components } from "../../shared/components";
 
 const defaultSnippetContent = `
 export default function App() {
@@ -36,27 +44,18 @@ export default function App() {
 }
 `.trim();
 
-export const virtuosoSampleSandpackConfig: SandpackConfig = {
+//Sandpack Config
+export const sandpackConfig: SandpackConfig = {
   defaultPreset: "react",
   presets: [
     {
       label: "React",
       name: "react",
       meta: "live react",
-      sandpackTemplate: "react",
+      sandpackTemplate: "react-ts",
       sandpackTheme: "light",
-      snippetFileName: "/App.js",
-      snippetLanguage: "jsx",
-      initialSnippetContent: defaultSnippetContent,
-    },
-    {
-      label: "React",
-      name: "react",
-      meta: "live",
-      sandpackTemplate: "react",
-      sandpackTheme: "light",
-      snippetFileName: "/App.js",
-      snippetLanguage: "jsx",
+      snippetFileName: "/App.tsx",
+      snippetLanguage: "tsx",
       initialSnippetContent: defaultSnippetContent,
     },
     {
@@ -75,6 +74,7 @@ export const virtuosoSampleSandpackConfig: SandpackConfig = {
   ],
 };
 
+//Image upload
 export async function expressImageUploadHandler(image: File) {
   const formData = new FormData();
   formData.append("image", image);
@@ -86,11 +86,13 @@ export async function expressImageUploadHandler(image: File) {
   return json.url;
 }
 
+// Embed
 interface YoutubeDirectiveNode extends LeafDirective {
   name: "youtube";
   attributes: { id: string };
 }
 
+//Defined Youtube Video
 export const YoutubeDirectiveDescriptor: DirectiveDescriptor<YoutubeDirectiveNode> =
   {
     name: "youtube",
@@ -102,13 +104,8 @@ export const YoutubeDirectiveDescriptor: DirectiveDescriptor<YoutubeDirectiveNod
     hasChildren: false,
     Editor: ({ mdastNode, lexicalNode, parentEditor }) => {
       return (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-          }}
-        >
+        <div className="flex items-start">
+          {components.youtube({ id: mdastNode.attributes.id })}
           <button
             onClick={() => {
               parentEditor.update(() => {
@@ -117,79 +114,91 @@ export const YoutubeDirectiveDescriptor: DirectiveDescriptor<YoutubeDirectiveNod
               });
             }}
           >
-            delete
+            <MdOutlineDeleteForever className="size-6" />
           </button>
-          <iframe
-            width="560"
-            height="315"
-            src={`https://www.youtube.com/embed/${mdastNode.attributes.id}`}
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          ></iframe>
         </div>
       );
     },
   };
 
+//Youtube Video Component
+const YouTubeButton = () => {
+  // grab the insertDirective action (a.k.a. publisher) from the
+  // state management system of the directivesPlugin
+  const insertDirective = usePublisher(insertDirective$);
+
+  return (
+    <DialogButton
+      tooltipTitle="Insert Youtube video"
+      submitButtonTitle="Insert video"
+      dialogInputPlaceholder="Paste the youtube video URL"
+      buttonContent={<FaYoutube className="size-6" />}
+      onSubmit={(url) => {
+        const videoId = new URL(url).searchParams.get("v");
+        if (videoId) {
+          insertDirective({
+            name: "youtube",
+            type: "leafDirective",
+            attributes: { id: videoId },
+            children: [],
+          } as LeafDirective);
+        } else {
+          alert("Invalid YouTube URL");
+        }
+      }}
+    />
+  );
+};
+
+//Plugins
 export const ALL_PLUGINS = [
-  toolbarPlugin({ toolbarContents: () => <KitchenSinkToolbar /> }),
+  //Toolbar plugins
+  toolbarPlugin({
+    toolbarContents: () => [<KitchenSinkToolbar />, <YouTubeButton />],
+  }),
+
+  //Basic plugins
   listsPlugin(),
   quotePlugin(),
   headingsPlugin({ allowedHeadingLevels: [1, 2, 3] }),
   linkPlugin(),
   linkDialogPlugin(),
-  imagePlugin({
-    imageAutocompleteSuggestions: [
-      "https://via.placeholder.com/150",
-      "https://via.placeholder.com/150",
-    ],
-    imageUploadHandler: async () =>
-      Promise.resolve("https://picsum.photos/200/300"),
-  }),
   tablePlugin(),
   thematicBreakPlugin(),
   frontmatterPlugin(),
-  codeBlockPlugin({ defaultCodeBlockLanguage: "" }),
-  sandpackPlugin({ sandpackConfig: virtuosoSampleSandpackConfig }),
+  imagePlugin({
+    imageAutocompleteSuggestions: ["https://via.placeholder.com/150"],
+    imageUploadHandler: async () =>
+      Promise.resolve("https://picsum.photos/200/300"),
+  }),
+
+  // Code Blocks
+  codeBlockPlugin({ defaultCodeBlockLanguage: "ts" }),
+  sandpackPlugin({ sandpackConfig: sandpackConfig }),
   codeMirrorPlugin({
     codeBlockLanguages: {
-      js: "JavaScript",
+      ts: "TS",
+      tsx: "TSX",
       css: "CSS",
       txt: "Plain Text",
-      tsx: "TypeScript",
-      "": "Unspecified",
     },
   }),
+
+  // Editing
+  diffSourcePlugin({
+    viewMode: "rich-text",
+    diffMarkdown: "An older version",
+    readOnlyDiff: true,
+  }),
+
+  // The markdown shortcuts plugin enables typing shortcuts (similar to Notion, recently ported to Google Docs) that initiate the corresponding markdown blocks.
+  markdownShortcutPlugin(),
+
+  // Embed - Youtube Videos
   directivesPlugin({
     directiveDescriptors: [
       YoutubeDirectiveDescriptor,
       AdmonitionDirectiveDescriptor,
     ],
-  }),
-  diffSourcePlugin({ viewMode: "rich-text", diffMarkdown: "boo" }),
-  markdownShortcutPlugin(),
-];
-
-export const PLUGINS = [
-  listsPlugin(),
-  quotePlugin(),
-  headingsPlugin({ allowedHeadingLevels: [1, 2, 3] }),
-  linkPlugin(),
-  linkDialogPlugin(),
-  diffSourcePlugin({ viewMode: "rich-text", diffMarkdown: "boo" }),
-  markdownShortcutPlugin(),
-  tablePlugin(),
-  thematicBreakPlugin(),
-  frontmatterPlugin(),
-  codeBlockPlugin({ defaultCodeBlockLanguage: "" }),
-  sandpackPlugin({ sandpackConfig: virtuosoSampleSandpackConfig }),
-  codeMirrorPlugin({
-    codeBlockLanguages: {
-      js: "JavaScript",
-      css: "CSS",
-      txt: "Plain Text",
-      tsx: "TypeScript",
-      "": "Unspecified",
-    },
   }),
 ];

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BlogProvider } from "@/contexts/blogContext";
-import Navbar from "@/components/pages/Dashboard/navbar";
+import Navbar from "@/components/pages/dashboard/navbar";
 import { AuthProvider } from "@/contexts/authContext";
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -14,7 +14,7 @@ export default function DashboardPageLayout({
   return (
     <AuthProvider>
       <BlogProvider>
-        <section className="flex w-full flex-col items-center gap-4 py-8">
+        <section className="flex min-h-custom w-full flex-col items-center">
           <Navbar />
           {children}
         </section>

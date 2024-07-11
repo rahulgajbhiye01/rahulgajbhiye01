@@ -1,4 +1,4 @@
-import Project from "../ui/project";
+import Project from "../../ui/project";
 
 import { IProject } from "@/types";
 
@@ -8,7 +8,7 @@ interface Props {
 
 const Projects = ({ projectData }: Props) => {
   return (
-    <div className="grid w-10/12 grid-flow-row gap-4 md:grid-cols-3 lg:w-6/12">
+    <div className="grid w-10/12 grid-flow-row gap-4 p-4 md:grid-cols-3 lg:w-8/12">
       {projectData.map((item) => (
         <div key={item.id}>
           <Project projectData={item} />

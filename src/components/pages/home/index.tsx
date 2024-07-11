@@ -1,12 +1,13 @@
-import TextAnimation from "@/components/pages/text-animation";
+import TextAnimation from "@/components/pages/shared/text-animation";
 import Socials from "@/components/ui/social";
 
 import { ISocial } from "@/types";
+
 type Props = {
   socialsData: ISocial[];
 };
 
-const FcHome = ({ socialsData }: Props) => {
+const Home = ({ socialsData }: Props) => {
   return (
     <section className="flex min-h-custom w-full scroll-mt-16 items-center justify-center">
       <div className="flex w-full items-center justify-center md:py-52">
@@ -37,4 +38,4 @@ const FcHome = ({ socialsData }: Props) => {
   );
 };
 
-export default FcHome;
+export default Home;

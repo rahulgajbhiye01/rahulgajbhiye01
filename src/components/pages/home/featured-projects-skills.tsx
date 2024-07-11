@@ -1,5 +1,5 @@
-import FeaturedProjects from "@/components/pages/featured-projects";
-import Skills from "@/components/pages/skills";
+import FeaturedProjects from "@/components/pages/projects/featured-projects";
+import Skills from "@/components/pages/shared/skills";
 
 import { IProject, ISkill } from "@/types";
 
@@ -8,7 +8,7 @@ type Props = {
   skillData: ISkill[];
 };
 
-const FcFeaturedProjectsSkills = ({ projectData, skillData }: Props) => {
+const FeaturedProjectsSkills = ({ projectData, skillData }: Props) => {
   return (
     <section className="flex min-h-custom w-full scroll-mt-16 flex-col items-center gap-32 py-8">
       <div className="flex flex-col items-center">
@@ -32,4 +32,4 @@ const FcFeaturedProjectsSkills = ({ projectData, skillData }: Props) => {
   );
 };
 
-export default FcFeaturedProjectsSkills;
+export default FeaturedProjectsSkills;

@@ -1,7 +1,7 @@
 import { getBlogsData } from "@/lib/db/db-helper";
-import FcBlogs from "@/components/pages/Blogs";
+import BlogList from "@/components/pages/blog-list";
 
 export default async function DashboardPage() {
   const allBlogs = await getBlogsData();
-  return <FcBlogs allBlogs={allBlogs} base="dashboard" />;
+  return <BlogList allBlogs={allBlogs} base="dashboard" />;
 }

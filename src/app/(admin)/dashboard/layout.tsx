@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { BlogProvider } from "@/contexts/blogContext";
-import Navbar from "../../../components/pages/dashboard/navbar";
+import Navbar from "@/components/pages/dashboard/navbar";
 import { AuthProvider } from "@/contexts/authContext";
 export const metadata: Metadata = {
   title: "Dashboard",

@@ -1,5 +1,5 @@
 "use server";
-
+import { revalidatePath } from 'next/cache'
 import { db } from "@/lib/db/db";
 import { IBlog } from "@/types";
 import matter from "gray-matter";
@@ -77,6 +77,8 @@ export async function readBlog(blogId: string) {
     if (source) {
       const blogData = matter(source);
       const { data, content } = blogData;
+      revalidatePath('/blogs')
+revalidatePath('/dashboard/blogs')
       return {
         rawBlogData,
         blogData: {
@@ -98,7 +100,8 @@ export async function readTitle(blogId: string) {
       indexedTitle: blogId,
     },
   });
-
+  revalidatePath('/blogs')
+  revalidatePath('/dashboard/blogs')
   return blogData?.title;
 }
 

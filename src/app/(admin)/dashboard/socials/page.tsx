@@ -1,4 +1,4 @@
-import SocialsEditor from "@/components/pages/dashboard/socials";
+import SocialsEditor from "@/components/pages/dashboard-1/socials";
 import Social from "@/components/ui/social";
 import { getSocialsData } from "@/lib/db/db-helper";
 

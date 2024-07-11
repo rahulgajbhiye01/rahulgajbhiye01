@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
   // Optionally, add any other Next.js config below
   async rewrites() {
     return {

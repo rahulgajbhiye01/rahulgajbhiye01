@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useTimeAgo } from "next-timeago";
 import { FaPlus } from "react-icons/fa6";
 import { IBlog } from "@/types";
-import { useRouter } from 'next/navigation';
 
 interface allBlogs {
   base: string;
@@ -12,8 +11,6 @@ interface allBlogs {
 }
 
 const BlogList = (props: allBlogs) => {
-  const router = useRouter();
-  router.refresh();
   const allBlogs = props.allBlogs;
   const base = props.base;
   const { TimeAgo } = useTimeAgo();

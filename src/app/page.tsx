@@ -8,6 +8,8 @@ import {
   getSocialsData,
 } from "@/lib/db/db-helper";
 
+export const dynamic = "force-dynamic";
+
 export default async function Root() {
   const skillData = await getSkillsData();
   const projectData = await getProjectsData();

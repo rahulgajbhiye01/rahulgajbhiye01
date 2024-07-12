@@ -1,5 +1,5 @@
 "use server";
-
+import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db/db";
 
 export async function getSkillsData() {
@@ -15,7 +15,10 @@ export async function getSocialsData() {
 }
 
 export async function getBlogsData() {
-  return await db.blog.findMany();
+  const data = await db.blog.findMany();
+  revalidatePath("/blogs");
+  revalidatePath("/dashboard/blogs");
+  return data;
 }
 
 export async function UserExist(userEmail: string) {

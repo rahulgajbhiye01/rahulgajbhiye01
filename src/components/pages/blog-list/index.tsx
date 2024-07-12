@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useTimeAgo } from "next-timeago";
 import { FaPlus } from "react-icons/fa6";
 import { IBlog } from "@/types";
+import Image from "next/image";
+import blogImage from "@/assets/default-blog-image.svg";
 
 interface allBlogs {
   base: string;
@@ -36,12 +38,21 @@ const BlogList = (props: allBlogs) => {
           >
             <div className="flex flex-col gap-4 p-4 md:flex-row md:gap-8">
               <div className="aspect-video max-w-full overflow-clip">
-                <img
-                  src={item.imageUrl ?? ""}
-                  alt={item.title ?? ""}
-                  height={384}
-                  width={384}
-                />
+                {item.imageUrl === "blank" ? (
+                  <Image
+                    src={blogImage}
+                    alt={item.title ?? "rahul gajbhiye blog's"}
+                    height={384}
+                    width={384}
+                  />
+                ) : (
+                  <img
+                    src={item.imageUrl ?? ""}
+                    alt={item.title ?? "rahul gajbhiye blog's"}
+                    height={384}
+                    width={384}
+                  />
+                )}
               </div>
 
               <div className="flex w-11/12 flex-col gap-2">

@@ -25,14 +25,9 @@ export const metadata: Metadata = {
     default: "Rahul Gajbhiye",
     template: "%s | Rahul Gajbhiye",
   },
-  description: "Portfolio Website of Rahul Gajbhiye",
+  description: siteConfig.description,
   keywords: [],
-  authors: [
-    {
-      name: "Rahul Gajbhiye",
-      url: "https://dev.rahulgajbhiye.com",
-    },
-  ],
+  authors: siteConfig.authors,
   creator: "Rahul Gajbhiye",
   openGraph: {
     type: "website",
@@ -60,7 +55,6 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
-  manifest: `${siteConfig.url}/site.webmanifest`,
 };
 
 export default async function RootLayout({

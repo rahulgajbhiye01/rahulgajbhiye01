@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { createProject, deleteProject } from "@/lib/server/actions/project";
+import { createProject, deleteProject } from "@/lib/server/actions/work";
 import { useFormState } from "react-dom";
 import { ProjectValidation } from "@/schema/zod";
 import { useToast } from "@/components/ui/use-toast";

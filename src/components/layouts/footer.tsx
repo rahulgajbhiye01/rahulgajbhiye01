@@ -14,7 +14,7 @@ const Footer = ({ socialData }: Props) => {
     <footer className="dark mt-24 flex justify-center bg-background text-foreground shadow-sm drop-shadow">
       <div className="mt-8 flex h-72 w-11/12 flex-col justify-between py-4 md:w-7/12">
         <div className="text-center text-3xl font-bold md:text-4xl xl:text-6xl">
-          a developer you need.
+          ...manifester
         </div>
         <div className="h-0.5 w-full bg-foreground"></div>
         <div className="flex flex-col items-center justify-between gap-8 md:flex-row">

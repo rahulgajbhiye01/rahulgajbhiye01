@@ -19,7 +19,7 @@ export default async function Root() {
       {/* Skill */}
       <Skill skillData={skillData} />
       {/* About */}
-      {/* <About /> */}
+      <About />
     </section>
   );
 }

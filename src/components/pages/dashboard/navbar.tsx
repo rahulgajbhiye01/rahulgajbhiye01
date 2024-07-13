@@ -10,17 +10,17 @@ const Navbar = () => {
           dashboard
         </Link>
         <span>/</span>
-        <Link href={"/dashboard/blogs"} className="hover:underline">
-          blogs
+        <Link href={"/dashboard/blog"} className="hover:underline">
+          blog
         </Link>
-        <Link href={"/dashboard/projects"} className="hover:underline">
-          projects
+        <Link href={"/dashboard/work"} className="hover:underline">
+          work
         </Link>
-        <Link href={"/dashboard/skills"} className="hover:underline">
-          skills
+        <Link href={"/dashboard/skill"} className="hover:underline">
+          skill
         </Link>
-        <Link href={"/dashboard/socials"} className="hover:underline">
-          socials
+        <Link href={"/dashboard/social"} className="hover:underline">
+          social
         </Link>
       </div>
     </div>

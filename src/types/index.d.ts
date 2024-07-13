@@ -1,16 +1,6 @@
 import { JsonValue } from "@prisma/client/runtime/library";
 
 /* Sections Declarations */
-export interface IHome {
-  sectionClass: string;
-  divClass: string;
-  dataDivClass: string;
-  imageDivClass: string;
-  imageSrc: any;
-  imageAlt: string;
-  sectionName: string;
-  children: React.ReactNode;
-}
 
 export interface IUser {
   id?: string;

@@ -62,15 +62,15 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const socialsData = await getSocialsData();
+  const socialData = await getSocialsData();
   return (
     <html lang="en">
       <body className={inter.className}>
         <Navbar />
-        <main className="flex min-h-screen bg-background text-foreground">
+        <main className="flex min-h-screen bg-background text-foreground antialiased">
           {children}
         </main>
-        <Footer socialsData={socialsData} />
+        <Footer socialData={socialData} />
         <Toaster />
       </body>
     </html>

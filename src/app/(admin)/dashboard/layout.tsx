@@ -14,7 +14,7 @@ export default function DashboardPageLayout({
   return (
     <AuthProvider>
       <BlogProvider>
-        <section className="flex min-h-custom w-full flex-col items-center">
+        <section className="flex min-h-custom w-full flex-col items-center pt-10">
           <Navbar />
           {children}
         </section>

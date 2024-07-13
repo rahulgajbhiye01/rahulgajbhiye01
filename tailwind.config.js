@@ -17,13 +17,6 @@ module.exports = {
       },
     },
     extend: {
-      typography: {
-        DEFAULT: {
-          css: {
-            maxWidth: "100ch",
-          },
-        },
-      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -60,10 +53,10 @@ module.exports = {
         },
       },
       minHeight: {
-        custom: "calc(100vh - 64px)",
+        custom: "calc(100vh - 96px)",
       },
       height: {
-        custom: "calc(100vh - 64px)",
+        custom: "calc(100vh - 96px)",
       },
       borderRadius: {
         lg: "var(--radius)",

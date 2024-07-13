@@ -22,7 +22,7 @@
     --card-foreground: 224 71.4% 4.1%;
     --popover: 0 0% 100%;
     --popover-foreground: 224 71.4% 4.1%;
-    --primary: 262.1 83.3% 57.8%;
+    --primary: 220.9 39.3% 11%;
     --primary-foreground: 210 20% 98%;
     --secondary: 220 14.3% 95.9%;
     --secondary-foreground: 220.9 39.3% 11%;
@@ -34,8 +34,8 @@
     --destructive-foreground: 210 20% 98%;
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 262.1 83.3% 57.8%;
-    --radius: 0.5rem;
+    --ring: 224 71.4% 4.1%;
+    --radius: 0.75rem;
   }
 
   .dark {
@@ -45,8 +45,8 @@
     --card-foreground: 210 20% 98%;
     --popover: 224 71.4% 4.1%;
     --popover-foreground: 210 20% 98%;
-    --primary: 263.4 70% 50.4%;
-    --primary-foreground: 210 20% 98%;
+    --primary: 210 20% 98%;
+    --primary-foreground: 220.9 39.3% 11%;
     --secondary: 215 27.9% 16.9%;
     --secondary-foreground: 210 20% 98%;
     --muted: 215 27.9% 16.9%;
@@ -57,7 +57,7 @@
     --destructive-foreground: 210 20% 98%;
     --border: 215 27.9% 16.9%;
     --input: 215 27.9% 16.9%;
-    --ring: 263.4 70% 50.4%;
+    --ring: 216 12.2% 83.9%;
   }
 }
 
@@ -67,9 +67,13 @@
   width: 32px;
   height: 32px;
   border: 8px solid;
-  border-color: #ff5d7d transparent #3c67e3 transparent;
+  border-color: #030712 transparent #4b5563 transparent;
   border-radius: 50%;
   animation: spin-anim 1.2s linear infinite;
+}
+
+.hoverline {
+  @apply hover:underline hover:underline-offset-8;
 }
 
 @keyframes spin-anim {
@@ -82,7 +86,7 @@
 }
 
 .prose {
-  @apply xl:min-w-[100ch];
+  @apply overflow-visible md:min-w-[80ch];
 }
 
 /* Editor Content */
@@ -118,11 +122,11 @@
 }
 
 .markdown th {
-  @apply bg-gray-200 p-1;
+  @apply bg-gray-300 p-1;
 }
 
 .markdown tr:nth-child(2n) {
-  @apply bg-zinc-100;
+  @apply bg-gray-100;
 }
 .markdown caption {
 }

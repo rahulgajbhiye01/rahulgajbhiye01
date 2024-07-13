@@ -75,16 +75,10 @@ export async function readBlog(blogId: string) {
     const source = rawBlogData[0].article;
 
     if (source) {
-      const blogData = matter(source);
-      const { data, content } = blogData;
       revalidatePath("/blogs");
       revalidatePath("/dashboard/blogs");
       return {
         rawBlogData,
-        blogData: {
-          frontMatter: data,
-          content,
-        },
       };
     }
   } catch (error) {

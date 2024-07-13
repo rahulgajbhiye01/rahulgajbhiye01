@@ -6,7 +6,7 @@ export async function getSkillsData() {
   return await db.skill.findMany();
 }
 
-export async function getProjectsData() {
+export async function getWorksData() {
   return await db.project.findMany();
 }
 

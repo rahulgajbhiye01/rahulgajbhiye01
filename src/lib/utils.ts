@@ -14,3 +14,10 @@ export function stringFormatter(str: string | undefined) {
       .replaceAll(/\s+/g, "-")
       .replaceAll(/-+/g, "-");
 }
+
+export const dateFormat = (date: string) => {
+  const formattedDate = new Date(date).toLocaleString("en-US", {
+    dateStyle: "long",
+  });
+  return formattedDate;
+};

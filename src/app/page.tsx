@@ -1,28 +1,25 @@
 import Home from "@/components/pages/home";
-import FeaturedProjectsSkills from "@/components/pages/home/featured-projects-skills";
-import About from "@/components/pages/home/about";
-
-import {
-  getSkillsData,
-  getProjectsData,
-  getSocialsData,
-} from "@/lib/db/db-helper";
+import Skill from "@/components/pages/skill";
+import About from "@/components/pages/about";
+import FeaturedWork from "@/components/pages/work/featured-work";
+import { getSkillsData, getWorksData } from "@/lib/db/db-helper";
 
 export const dynamic = "force-dynamic";
 
 export default async function Root() {
   const skillData = await getSkillsData();
-  const projectData = await getProjectsData();
-  const socialsData = await getSocialsData();
+  const workData = await getWorksData();
 
   return (
-    <div className="w-full">
-      {/* Hero Section */}
-      <Home socialsData={socialsData} />
-      {/* Featured Projects */}
-      <FeaturedProjectsSkills projectData={projectData} skillData={skillData} />
+    <section className="flex min-h-custom w-full flex-col justify-center gap-32 px-2">
+      {/* Home */}
+      <Home />
+      {/* Featured Work */}
+      <FeaturedWork workData={workData} />
+      {/* Skill */}
+      <Skill skillData={skillData} />
       {/* About */}
       {/* <About /> */}
-    </div>
+    </section>
   );
 }

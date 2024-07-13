@@ -1,40 +1,23 @@
-import TextAnimation from "@/components/pages/shared/text-animation";
-import Socials from "@/components/ui/social";
+import TextAnimation from "@/components/ui/text-animation";
 
-import { ISocial } from "@/types";
-
-type Props = {
-  socialsData: ISocial[];
-};
-
-const Home = ({ socialsData }: Props) => {
+const Home = () => {
   return (
-    <section className="flex min-h-custom w-full scroll-mt-16 items-center justify-center">
-      <div className="flex w-full items-center justify-center md:py-52">
-        <div className="flex flex-col gap-4 xl:gap-8">
-          <h1 className="text-3xl font-bold md:text-3xl lg:text-4xl xl:text-3xl 2xl:text-6xl">
-            I&apos;m a Web & Software <br />
-            Developer from India.
-          </h1>
-          <div className="flex flex-col gap-4 xl:gap-8">
-            <h1 className="text-base italic md:text-sm lg:text-base 2xl:text-xl">
-              Creating, Web Apps with
-            </h1>
-            <span className="h-14 text-xl font-semibold md:text-2xl lg:text-2xl xl:text-2xl 2xl:text-4xl">
-              <TextAnimation />
-            </span>
-          </div>
+    <div className="flex flex-col items-center pt-32">
+      <div className="flex flex-col gap-6 md:gap-10">
+        <h1 className="text-3xl font-bold md:text-4xl xl:text-6xl">
+          a Web & Software <br />
+          Developer from India.
+        </h1>
+        <div className="flex flex-col gap-2 lg:gap-4">
+          <span className="text-base italic lg:text-base 2xl:text-xl">
+            Crafting, Web Apps with
+          </span>
+          <span className="h-14 text-xl font-semibold lg:text-2xl 2xl:text-4xl">
+            <TextAnimation />
+          </span>
         </div>
       </div>
-      <div className="absolute right-4 hidden md:flex md:items-center">
-        <div className="flex flex-col items-end gap-2 lg:gap-4">
-          <Socials socialsData={socialsData} variant="home" name="Github" />
-          <Socials socialsData={socialsData} variant="home" name="LinkedIn" />
-          <Socials socialsData={socialsData} variant="home" name="Twitter" />
-          <Socials socialsData={socialsData} variant="home" name="Resume" />
-        </div>
-      </div>
-    </section>
+    </div>
   );
 };
 

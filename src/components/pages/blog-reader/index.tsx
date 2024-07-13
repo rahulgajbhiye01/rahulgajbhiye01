@@ -7,27 +7,24 @@ import rehypePrettyCode from "rehype-pretty-code";
 import remarkDirective from "remark-directive";
 import remarkDirectiveRehype from "remark-directive-rehype";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import FcBlogMetadata from "@/components/pages/blog-reader/metadata";
-import { components } from "../shared/components";
+import { components } from "@/components/pages/shared/components";
 import Loading from "@/components/ui/loading";
+import BlogMeta from "@/components/pages/shared/blog-meta";
+
+import { IBlog } from "@/types";
 
 interface Props {
-  mdxSource: {
-    frontMatter: {
-      [key: string]: any;
-    };
-    content: string;
-  };
+  rawBlogData: Array<IBlog>;
 }
 
-const BlogReader = ({ mdxSource }: Props) => {
+const BlogReader = ({ rawBlogData }: Props) => {
   return (
     <Suspense fallback={<Loading />}>
       <div className="flex w-screen flex-col gap-4 px-4 md:w-full">
-        <FcBlogMetadata frontMatter={mdxSource.frontMatter} />
+        <BlogMeta blogMeta={rawBlogData[0]} variant="BlogReader" />
         <article className="markdown">
           <MDXRemote
-            source={mdxSource.content}
+            source={`${rawBlogData[0].article}`}
             components={components}
             options={{
               // made available to the arguments of any custom MDX component
@@ -49,7 +46,7 @@ const BlogReader = ({ mdxSource }: Props) => {
                 format: "mdx",
               },
               // Indicates whether or not to parse the frontmatter from the MDX source
-              parseFrontmatter: false,
+              parseFrontmatter: true,
             }}
           />
         </article>

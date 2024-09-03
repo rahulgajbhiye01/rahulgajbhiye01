@@ -53,10 +53,10 @@ module.exports = {
         },
       },
       minHeight: {
-        custom: "calc(100vh - 64px)",
+        custom: "calc(100vh - 96px)",
       },
       height: {
-        custom: "calc(100vh - 64px)",
+        custom: "calc(100vh - 96px)",
       },
       borderRadius: {
         lg: "var(--radius)",

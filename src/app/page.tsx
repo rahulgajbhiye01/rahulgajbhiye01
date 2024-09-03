@@ -1,25 +1,8 @@
-import FcHome from "@/components/pages/Sections/home";
-import FcFeaturedProjectsSkills from "@/components/pages/Sections/featured-projects-skills";
-import {
-  getSkillsData,
-  getProjectsData,
-  getSocialsData,
-} from "@/lib/db/db-helper";
-
+import Home from "@/components/pages/home";
 export default async function Root() {
-  const skillData = await getSkillsData();
-  const projectData = await getProjectsData();
-  const socialsData = await getSocialsData();
-
   return (
-    <div className="w-full">
-      {/* {Hero Section} */}
-      <FcHome socialsData={socialsData} />
-      {/* {Featured Projects} */}
-      <FcFeaturedProjectsSkills
-        projectData={projectData}
-        skillData={skillData}
-      />
-    </div>
+    <section className="flex min-h-custom w-full flex-col justify-center px-2">
+      <Home />
+    </section>
   );
 }

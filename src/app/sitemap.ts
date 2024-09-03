@@ -1,8 +1,11 @@
 import { MetadataRoute } from "next";
-import { getBlogsData } from "@/lib/db/db-helper";
+import { IBlog } from "@/constants/types";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const Blogs = await getBlogsData();
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blog`, {
+    cache: "no-store", // Ensures the data is fresh on each request
+  });
+  const blogsData: IBlog[] = await response.json();
   return [
     {
       url: `${process.env.NEXT_PUBLIC_BASE_URL}/`,
@@ -18,8 +21,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily",
       priority: 0.8,
     },
-    ...Blogs.map((o) => ({
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${o.indexedTitle}`,
+    ...blogsData.map((blog) => ({
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${blog.blogId}`,
     })),
   ];
 }

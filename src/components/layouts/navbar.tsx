@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { HiOutlineMenu } from "react-icons/hi";
-import Title from "@/components/ui/title";
+import Title from "@/components/ui/shared/title";
 
 import {
   NavigationMenu,
@@ -41,17 +41,27 @@ const Navbar = () => {
           <NavigationMenuList className="hidden gap-2 md:flex lg:gap-6">
             <NavigationMenuItem>
               <Link href="/work" legacyBehavior passHref>
-                <NavigationMenuLink className="hoverline text-base font-medium">
+                <NavigationMenuLink className="hover-line text-base font-medium">
                   Work
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
               <Link href="/blog" legacyBehavior passHref>
-                <NavigationMenuLink className="hoverline text-base font-medium">
+                <NavigationMenuLink className="hover-line text-base font-medium">
                   Blog
                 </NavigationMenuLink>
               </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <a
+                href="https://merch.rahulgajbhiye.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover-line text-base font-medium"
+              >
+                Merch
+              </a>
             </NavigationMenuItem>
             <NavigationMenuItem>
               <Button
@@ -76,7 +86,7 @@ const Navbar = () => {
                 <DropdownMenuItem>
                   <Link
                     href="/work"
-                    className="hoverline text-base font-medium"
+                    className="hover-line text-base font-medium"
                   >
                     Work
                   </Link>
@@ -84,10 +94,20 @@ const Navbar = () => {
                 <DropdownMenuItem>
                   <Link
                     href="/blog"
-                    className="hoverline text-base font-medium"
+                    className="hover-line text-base font-medium"
                   >
                     Blog
                   </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <a
+                    href="https://merch.rahulgajbhiye.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover-line text-base font-medium"
+                  >
+                    Merch
+                  </a>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <a href="mailto:rahulgajbhiye201@gmail.com">

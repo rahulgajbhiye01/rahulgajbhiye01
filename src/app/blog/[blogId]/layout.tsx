@@ -1,16 +1,8 @@
 import { Metadata } from "next";
-import { getBlogs, getBlog } from "@/lib/actions/blog";
+import { getBlog } from "@/lib/actions/blog";
 
 interface Params {
   params: { blogId: string };
-}
-
-// Generate static page for all the blogs
-export async function generateStaticParams() {
-  const blogsData = await getBlogs();
-  if (blogsData.data) {
-    return blogsData.data.map(({ blogId }) => ({ blogId }));
-  }
 }
 
 // Dynamic metadata

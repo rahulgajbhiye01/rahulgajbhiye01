@@ -28,7 +28,7 @@ export interface IBlog {
   id?: string;
   blogId: string;
   title: string;
-  createdAt?: string;
+  createdAt?: Date;
   author: string;
   category: string;
   keywords: string;

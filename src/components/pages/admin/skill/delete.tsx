@@ -4,36 +4,18 @@ import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
+import { deleteSkill } from "@/lib/actions/skill";
 const SkillDelete = () => {
   const { toast } = useToast();
   const router = useRouter();
-  const [inputData, setInputData] = useState("");
+  const [name, setName] = useState("");
 
   const handleDelete = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/skill`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ name: inputData }),
-        },
-      );
-
-      const result = await response.json();
-      toast({
-        description: result.message,
-      });
-
-      router.refresh();
-    } catch (error) {
-      toast({
-        description: "Failed to delete skill.",
-      });
-    }
+    const response = await deleteSkill(name);
+    toast({
+      description: response.message,
+    });
+    router.refresh();
   };
 
   return (
@@ -43,7 +25,7 @@ const SkillDelete = () => {
         <Input
           placeholder="Name"
           name="delete"
-          onChange={(e) => setInputData(e.target.value)}
+          onChange={(e) => setName(e.target.value)}
         />
 
         <Button type="submit" onClick={handleDelete}>

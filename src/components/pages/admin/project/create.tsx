@@ -7,6 +7,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { postProject } from "@/lib/actions/project";
 
 import {
   Form,
@@ -33,33 +34,11 @@ const ProjectCreate = () => {
   });
 
   const handleSave = async (data: z.infer<typeof ProjectValidation>) => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/project`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        },
-      );
-
-      const result = await response.json();
-
-      toast({
-        description: result.message,
-      });
-
-      if (response.ok) {
-        form.reset();
-      }
-      router.refresh();
-    } catch (error) {
-      toast({
-        description: "Failed to save project.",
-      });
-    }
+    const response = await postProject(data);
+    toast({
+      description: response.message,
+    });
+    router.refresh();
   };
 
   return (

@@ -1,16 +1,13 @@
-import Title from "@/components/ui/custom/Title";
 import { FaGithub, FaLinkedin, FaYoutube } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { GoDownload } from "react-icons/go";
 
-const Footer = () => {
+const HomeFooter = () => {
   const date = new Date().getFullYear();
   return (
     <footer className="dark flex justify-center bg-background text-foreground shadow-sm drop-shadow">
-      <div className="mt-8 flex h-48 w-11/12 flex-col justify-between py-4 md:w-7/12">
-        <div className="h-0.5 w-full bg-foreground"></div>
+      <div className="flex w-11/12 flex-col items-center  justify-center gap-4 py-4 md:w-7/12">
         <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
-          <Title classStyle="text-4xl font-bold md:text-3xl" />
           <div className="flex w-min flex-row gap-4 text-right">
             <a
               href="https://github.com/rahulgajbhiye201"
@@ -49,7 +46,7 @@ const Footer = () => {
             </a>
           </div>
         </div>
-        <div className="text-center text-xs font-light">
+        <div className="text-sm font-light">
           <span>©{date} Rahul Gajbhiye</span>
         </div>
       </div>
@@ -57,4 +54,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default HomeFooter;

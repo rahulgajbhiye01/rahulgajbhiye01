@@ -1,13 +1,11 @@
 import "./globals.css";
 
 import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Inter } from "next/font/google";
 
 // Component & Config imports
-import Navbar from "@/components/layouts/navbar";
-import Footer from "@/components/layouts/footer";
 import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -41,16 +39,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="antialiased">
       <body className={`${inter.className}`}>
-        <Navbar />
-        <main className="flex bg-background text-foreground antialiased">
-          {children}
-        </main>
-        <Footer />
+        {children}
         <Toaster />
-        <Analytics />
-        <SpeedInsights />
+        {/* <Analytics />
+        <SpeedInsights /> */}
       </body>
     </html>
   );

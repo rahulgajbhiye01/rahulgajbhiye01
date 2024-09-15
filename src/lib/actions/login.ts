@@ -2,9 +2,8 @@
 
 import { LoginValidation } from "@/constants/schema/zod";
 import { cookies } from "next/headers";
-import { encrypt } from "@/lib/session";
-import { decrypt } from "@/lib/session";
-import { db } from "@/lib/db/db";
+import { encrypt, decrypt } from "@/lib/session";
+import { db } from "@/lib/db";
 
 export async function login(prevState: any, formData: FormData) {
   // Input verification
@@ -41,7 +40,10 @@ export async function login(prevState: any, formData: FormData) {
       const session = await encrypt({ userData, expires });
 
       // Save the session in a cookie
-      cookies().set("session", session, { expires, httpOnly: true });
+      cookies().set("session", session, {
+        expires,
+        httpOnly: true,
+      });
       return {
         message: "success",
         data: {

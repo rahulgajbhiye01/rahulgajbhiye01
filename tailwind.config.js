@@ -1,5 +1,9 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+import tailwindcssAnimate from "tailwindcss-animate";
+import tailwindScrollbar from "tailwind-scrollbar";
+import tailwindTypography from "@tailwindcss/typography";
+
+export default {
   darkMode: "class",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -85,11 +89,11 @@ module.exports = {
     },
   },
   plugins: [
-    require("tailwindcss-animate"),
-    require("tailwind-scrollbar")({
+    tailwindcssAnimate,
+    tailwindScrollbar({
       nocompatible: true,
       preferredStrategy: "pseudoelements",
     }),
-    require("@tailwindcss/typography"),
+    tailwindTypography,
   ],
 };

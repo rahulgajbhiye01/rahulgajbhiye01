@@ -4,35 +4,19 @@ import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { deleteProject } from "@/lib/actions/project";
 
 const ProjectDelete = () => {
   const { toast } = useToast();
   const router = useRouter();
-  const [inputData, setInputData] = useState("");
+  const [title, setTitle] = useState("");
 
   const handleDelete = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/project`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ title: inputData }),
-        },
-      );
-
-      const result = await response.json();
-      toast({
-        description: result.message,
-      });
-      router.refresh();
-    } catch (error) {
-      toast({
-        description: "Failed to delete project.",
-      });
-    }
+    const response = await deleteProject(title);
+    toast({
+      description: response.message,
+    });
+    router.refresh();
   };
 
   return (
@@ -42,7 +26,7 @@ const ProjectDelete = () => {
         <Input
           placeholder="Title"
           name="delete"
-          onChange={(e) => setInputData(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
         />
 
         <Button type="submit" onClick={handleDelete}>

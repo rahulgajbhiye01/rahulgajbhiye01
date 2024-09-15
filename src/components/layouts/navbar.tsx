@@ -4,24 +4,19 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { HiOutlineMenu } from "react-icons/hi";
-import Title from "@/components/ui/shared/title";
+import Title from "@/components/ui/custom/Title";
 
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -34,18 +29,11 @@ const Navbar = () => {
           <NavigationMenuList className="gap-6">
             <Link href="/" legacyBehavior passHref>
               <NavigationMenuLink>
-                <Title />
+                <Title classStyle="text-2xl font-bold lg:text-3xl" />
               </NavigationMenuLink>
             </Link>
           </NavigationMenuList>
           <NavigationMenuList className="hidden gap-2 md:flex lg:gap-6">
-            <NavigationMenuItem>
-              <Link href="/work" legacyBehavior passHref>
-                <NavigationMenuLink className="hover-line text-base font-medium">
-                  Work
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
             <NavigationMenuItem>
               <Link href="/blog" legacyBehavior passHref>
                 <NavigationMenuLink className="hover-line text-base font-medium">
@@ -84,20 +72,9 @@ const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="dark m-4 flex bg-background">
                 <DropdownMenuItem>
-                  <Link
-                    href="/work"
-                    className="hover-line text-base font-medium"
-                  >
-                    Work
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link
-                    href="/blog"
-                    className="hover-line text-base font-medium"
-                  >
+                  <a href="/blog" className="hover-line text-base font-medium">
                     Blog
-                  </Link>
+                  </a>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
                   <a

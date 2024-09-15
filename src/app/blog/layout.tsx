@@ -1,20 +1,16 @@
-import type { Metadata } from "next";
+import Navbar from "@/components/layouts/navbar";
+import Footer from "@/components/layouts/footer";
 
-export const metadata: Metadata = {
-  title: {
-    default: "Blog",
-    template: "%s | Rahul Gajbhiye",
-  },
-};
-
-export default function BlogsPageLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <section className="flex min-h-custom w-full flex-col items-center py-10">
+    <main className="flex min-h-screen flex-col justify-center">
+      <Navbar />
       {children}
-    </section>
+      <Footer />
+    </main>
   );
 }

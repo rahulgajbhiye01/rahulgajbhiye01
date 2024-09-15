@@ -1,29 +1,21 @@
 import { Suspense } from "react";
-import { notFound } from "next/navigation";
-import Loading from "@/components/ui/loading";
+import Loading from "@/components/ui/custom/Loading";
 
 import ProjectEditor from "@/components/pages/admin/project";
-import Project from "@/components/shared/project";
+import Projects from "@/components/ui/custom/Projects";
+import { getProjects } from "@/lib/actions/project";
 
-export default async function DashboardProject() {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/project`,
+export const dynamic = "force-dynamic";
+
+export default async function DashboardProjectPage() {
+  const response = (await getProjects()) || [];
+
+  if (response.status === 200 && response.data) {
+    return (
+      <Suspense fallback={<Loading />}>
+        <ProjectEditor />
+        <Projects projectsData={response.data} />
+      </Suspense>
     );
-
-    if (response.status === 200) {
-      const projectsData = await response.json();
-      return (
-        <Suspense fallback={<Loading />}>
-          <ProjectEditor />
-          <Project projectsData={projectsData} />
-        </Suspense>
-      );
-    } else {
-      notFound();
-    }
-  } catch (error) {
-    console.error("Error fetching project:", error);
-    notFound();
   }
 }

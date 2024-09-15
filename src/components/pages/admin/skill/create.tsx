@@ -8,6 +8,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { postSkill } from "@/lib/actions/skill";
 
 import {
   Form,
@@ -29,34 +30,12 @@ const SkillCreate = () => {
   });
 
   const handleSave = async (data: z.infer<typeof SkillValidation>) => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/skill`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        },
-      );
-
-      const result = await response.json();
-      toast({
-        description: result.message,
-      });
-
-      if (response.ok) {
-        form.reset();
-      }
-      router.refresh();
-    } catch (error) {
-      toast({
-        description: "Failed to save skill.",
-      });
-    }
+    const response = await postSkill(data);
+    toast({
+      description: response.message,
+    });
+    router.refresh();
   };
-
   return (
     <div className="flex w-full flex-col gap-4">
       <span className="text-xl">New Skill</span>

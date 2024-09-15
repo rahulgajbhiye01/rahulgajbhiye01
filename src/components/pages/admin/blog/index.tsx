@@ -1,15 +1,14 @@
 "use client";
 
-import { useRef } from "react";
+import { Suspense, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { MDXEditorMethods } from "@mdxeditor/editor";
 
+import { MDXEditorMethods } from "@mdxeditor/editor";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import FcForwardRefEditor from "@/components/pages/admin/blog/mdx-editor";
-
-import { Suspense } from "react";
-import LoadingSpinner from "@/components/ui/loading";
+import LoadingSpinner from "@/components/ui/custom/Loading";
+import { postBlog, putBlog, deleteBlog } from "@/lib/actions/blog";
 
 import {
   Dialog,
@@ -39,39 +38,20 @@ const BlogEditor = ({ blogId, blogData }: Props) => {
     // Get the updated data
     const blogArticle = ref.current?.getMarkdown();
 
-    if (blogId !== "new-blog") {
-      // Update existing blog
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/blog`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ blogArticle: blogArticle }),
-        },
-      );
-      const data = await response.json();
-      toast({
-        description: data.message,
-      });
-      router.refresh();
-    } else {
-      // Create new blog
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/blog`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ blogArticle: blogArticle }),
-        },
-      );
-      const data = await response.json();
-      toast({
-        description: data.message,
-      });
+    if (blogArticle) {
+      if (blogId === "new-blog") {
+        // New blog
+        const response = await postBlog(blogArticle);
+        toast({
+          description: response.message,
+        });
+      } else {
+        // Update blog
+        const response = await putBlog(blogArticle);
+        toast({
+          description: response.message,
+        });
+      }
       router.push("/admin/blog");
       router.refresh();
     }
@@ -79,21 +59,9 @@ const BlogEditor = ({ blogId, blogData }: Props) => {
 
   const handleDelete = async () => {
     if (blogId) {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/blog`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            blogId: blogId,
-          }),
-        },
-      );
-      const data = await response.json();
+      const response = await deleteBlog(blogId);
       toast({
-        description: data.message,
+        description: response.message,
       });
       router.push("/admin/blog");
       router.refresh();
@@ -102,34 +70,32 @@ const BlogEditor = ({ blogId, blogData }: Props) => {
 
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <div className="mb-8 flex w-screen flex-col items-center gap-4 md:w-full">
-        {/* MDX Editor*/}
-        <FcForwardRefEditor
-          ref={ref}
-          markdown={blogData.article}
-          contentEditableClassName=" "
-          className=""
-        />
-        <div className="flex flex-row gap-4">
-          {/* Save blog */}
-          <Button onClick={handleSaveUpdate}>Save</Button>
-          {/* Delete blog */}
-          <Dialog>
-            <DialogTrigger className="h-9 rounded-md bg-primary px-4 text-white">
-              Delete
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Are you absolutely sure?</DialogTitle>
-                <DialogDescription>
-                  This action cannot be undone. This will permanently delete the
-                  blog from the Database.
-                </DialogDescription>
-                <Button onClick={handleDelete}>Sure</Button>
-              </DialogHeader>
-            </DialogContent>
-          </Dialog>
-        </div>
+      {/* MDX Editor*/}
+      <FcForwardRefEditor
+        ref={ref}
+        markdown={blogData.article}
+        contentEditableClassName=" "
+        className=""
+      />
+      <div className="flex flex-row gap-4">
+        {/* Save blog */}
+        <Button onClick={handleSaveUpdate}>Save</Button>
+        {/* Delete blog */}
+        <Dialog>
+          <DialogTrigger className="h-9 rounded-md bg-primary px-4 text-white">
+            Delete
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Are you absolutely sure?</DialogTitle>
+              <DialogDescription>
+                This action cannot be undone. This will permanently delete the
+                blog from the Database.
+              </DialogDescription>
+              <Button onClick={handleDelete}>Sure</Button>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
       </div>
     </Suspense>
   );

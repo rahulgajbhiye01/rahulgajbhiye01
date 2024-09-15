@@ -1,11 +1,14 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import TimeAgo from "@/components/ui/custom/TimeAgo";
+
+import { Cabin } from "next/font/google";
+
+const cabin = Cabin({ subsets: ["latin"] });
 
 import { IBlog } from "@/constants/types";
 import blogImage from "@/constants/assets/default-blog-image.svg";
-import { dateFormat } from "@/lib/utils";
 
 interface allBlogs {
   blogsData: IBlog[];
@@ -14,60 +17,52 @@ interface allBlogs {
 
 const Blog = ({ blogsData, base }: allBlogs) => {
   return (
-    <div className="flex w-11/12 flex-col items-center md:w-7/12">
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        {blogsData.map((blogData, index) => {
-          let spanClass,
-            divClass = "";
-
-          if (index === 0 || index === 1) {
-            spanClass = "md:col-span-1"; // Full row
-            divClass = "flex-col";
-          } else {
-            spanClass = "md:col-span-2 rounded-md";
-            divClass = "flex-row";
-          } // Default one
-
-          return (
+    <>
+      {blogsData.map((blogData) => {
+        return (
+          <React.Fragment key={blogData.id}>
             <Link
-              key={blogData.id}
-              className={cn(`border-2 border-solid p-4 ${spanClass}`)}
+              className="flex flex-col justify-start gap-4 md:p-4"
               href={`${base === "admin" ? "/admin/blog" : "/blog"}/${blogData.blogId}`}
             >
-              <div className={cn(`flex gap-4 ${divClass}`)}>
-                <div className={cn(`aspect-video min-h-full`)}>
+              {/* Meta */}
+              <span className="text-sm md:text-base md:font-normal">
+                {blogData.category}
+              </span>
+              {/* Image & Title */}
+              <div className="flex flex-row items-center justify-between gap-4 md:gap-8">
+                <div
+                  className={`w-7/12 text-2xl font-bold text-foreground md:text-4xl ${cabin.className}`}
+                >
+                  {blogData.title}
+                </div>
+                <div className="flex aspect-video h-16 w-4/12 justify-center md:h-28">
                   {blogData.imageUrl === "blank" ? (
                     <Image
                       src={blogImage}
                       alt={blogData.title ?? "rahul gajbhiye blog's"}
-                      className="m-0 h-full"
+                      className="h-full"
                     />
                   ) : (
                     <img
                       src={blogData.imageUrl ?? ""}
                       alt={blogData.title ?? "rahul gajbhiye blog's"}
-                      className="m-0 h-full"
+                      className="h-full"
                     />
                   )}
                 </div>
-                <div className="flex flex-col justify-center gap-2">
-                  <div className="flex flex-row gap-1 text-gray-600 md:ml-0.5">
-                    <span className="font-medium">{blogData.category}</span>
-                    <span className="text-gray-300">•</span>
-                    <span className="font-normal">
-                      {dateFormat(`${blogData.createdAt}`)}
-                    </span>
-                  </div>
-                  <div className="relative text-3xl font-semibold text-gray-800 md:text-4xl">
-                    {blogData.title}
-                  </div>
-                </div>
               </div>
+              {/* Time */}
+              <span className="text-sm md:text-base md:font-normal">
+                <TimeAgo date={`${blogData.createdAt}`} />
+              </span>
             </Link>
-          );
-        })}
-      </div>
-    </div>
+            {/* Breaker */}
+            <div className="h-px w-full bg-neutral-200"></div>
+          </React.Fragment>
+        );
+      })}
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import BlogEditor from "@/components/pages/admin/blog";
-import { IBlog } from "@/constants/types";
+import { getBlog } from "@/lib/actions/blog";
 
 interface Params {
   params: { blogId: string };
@@ -29,14 +29,11 @@ export default async function BlogPage({ params: { blogId } }: Params) {
     return <BlogEditor blogId={blogId} blogData={newBlogData} />;
   }
   // Else fetch blog data
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/blog/${blogId}`,
-  );
+  const response = await getBlog(blogId);
 
-  if (response.status === 200) {
-    const blogData: IBlog = await response.json();
-    return <BlogEditor blogId={blogId} blogData={blogData} />;
+  if (response.status === 200 && response.data) {
+    return <BlogEditor blogId={blogId} blogData={response.data} />;
+  } else {
+    notFound();
   }
-
-  notFound();
 }

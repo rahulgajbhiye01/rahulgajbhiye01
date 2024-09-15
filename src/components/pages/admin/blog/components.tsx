@@ -1,6 +1,6 @@
 export const components = {
   // h1: (props: any) => <h1 {...props} className="text-xl" />,
-  youtube: ({ id }: any) => (
+  youtube: ({ id }: { id: string }) => (
     <iframe
       className="youtube"
       src={`https://www.youtube.com/embed/` + id}

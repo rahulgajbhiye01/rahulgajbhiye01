@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   keywords: ["Designer", "Developer", "Entrepreneur"],
   authors: { name: "Rahul Gajbhiye", url: "https://rahulgajbhiye.com" },
   creator: "Rahul Gajbhiye",
-  metadataBase: new URL(`https://${process.env.NEXT_PUBLIC_BASE_URL}`),
+  metadataBase: new URL(`${process.env.NEXT_PUBLIC_BASE_URL}`),
   twitter: {
     card: "summary_large_image",
   },
@@ -43,8 +43,8 @@ export default async function RootLayout({
       <body className={`${inter.className}`}>
         {children}
         <Toaster />
-        {/* <Analytics />
-        <SpeedInsights /> */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

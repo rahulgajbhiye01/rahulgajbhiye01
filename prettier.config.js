@@ -1,7 +1,6 @@
 /** @type {import("prettier").Options} */
-import prettierPluginTailwindcss from "prettier-plugin-tailwindcss";
-
 export default {
-  plugins: [prettierPluginTailwindcss],
+  plugins: ["prettier-plugin-tailwindcss"],
   tailwindConfig: "./tailwind.config.js",
 };
+ 

@@ -1,25 +1,21 @@
-import FcHome from "@/components/pages/Sections/home";
-import FcFeaturedProjectsSkills from "@/components/pages/Sections/featured-projects-skills";
-import {
-  getSkillsData,
-  getProjectsData,
-  getSocialsData,
-} from "@/lib/db/db-helper";
+import { db } from "@/lib/db";
+import Home from "@/components/pages/home";
 
 export default async function Root() {
-  const skillData = await getSkillsData();
-  const projectData = await getProjectsData();
-  const socialsData = await getSocialsData();
+  const projectsData = await db.project.findMany({
+    include: {
+      techStack: true,
+    },
+  });
+  const skillsData = await db.skill.findMany();
 
+  const worksData = {
+    skillsData: skillsData,
+    projectsData: projectsData,
+  };
   return (
-    <div className="w-full">
-      {/* {Hero Section} */}
-      <FcHome socialsData={socialsData} />
-      {/* {Featured Projects} */}
-      <FcFeaturedProjectsSkills
-        projectData={projectData}
-        skillData={skillData}
-      />
-    </div>
+    <main className="dark flex min-h-screen w-full flex-col justify-center bg-background text-foreground">
+      <Home worksData={worksData} />
+    </main>
   );
 }

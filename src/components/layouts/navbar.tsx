@@ -5,7 +5,7 @@ import Logo from "@/app/logo";
 import { useState } from "react";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import { Button } from "@/components/ui/button";
-import SocialPopup from "@/components/ui/SocialPopup";
+import SocialPopup from "@/components/ui/customs/social-popup";
 
 const navLinks = [
   { href: "/#projects", label: "Projects" },
@@ -23,7 +23,7 @@ const Navbar = () => {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:py-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <Logo className="w-10 h-10 fill-foreground" />
+          <Logo className="w-10 h-10" />
         </Link>
 
         {/* Desktop Nav */}

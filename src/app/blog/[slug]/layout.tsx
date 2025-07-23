@@ -4,7 +4,7 @@ export default function BlogLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-[100vh] mt-24 flex flex-col items-center">
+    <div className="min-h-screen mt-24 flex flex-col items-center">
       {children}
     </div>
   );

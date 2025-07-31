@@ -1,20 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import Logo from "@/app/logo";
+import LogoUI from "../ui/customs/logo";
 import { useState } from "react";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 import { Button } from "@/components/ui/button";
-import SocialPopup from "@/components/ui/customs/social-popup";
-
-const navLinks = [
-  { href: "/#projects", label: "Projects" },
-  { href: "/#skills", label: "Skills" },
-  { href: "/#experience", label: "Experience" },
-  { href: "/#achievements", label: "Achievements" },
-  { href: "/#about", label: "About" },
-  { href: "/blog", label: "Blog" },
-];
+import { navLinks } from "@/constants/nav";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +14,7 @@ const Navbar = () => {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:py-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <Logo className="w-10 h-10" />
+          <LogoUI TextClassName="mb-1 text-base" LogoClassName="w-10 h-10" />
         </Link>
 
         {/* Desktop Nav */}
@@ -32,13 +23,11 @@ const Navbar = () => {
             <Link
               key={href}
               href={href}
-              className="text-base font-medium transition hover:text-primary"
+              className="text-base transition hover:text-primary"
             >
               {label}
             </Link>
           ))}
-
-          <SocialPopup />
         </nav>
 
         {/* Mobile Toggle */}
@@ -68,8 +57,6 @@ const Navbar = () => {
               {label}
             </Link>
           ))}
-
-          <SocialPopup />
         </div>
       )}
     </header>

@@ -1,0 +1,81 @@
+---
+title: "Getting Started with Next.js and MDX"
+date: "2024-01-15"
+excerpt: "Learn how to set up a powerful blog using Next.js and MDX with custom components."
+author: "john-doe"
+tags: ["nextjs", "mdx", "react", "blog"]
+published: true
+---
+
+# Welcome to MDX Blogging
+
+This is a **sample blog post** written in MDX. You can use all the power of Markdown combined with React components!
+
+## What is MDX?
+
+MDX allows you to use JSX in your Markdown content. You can import components, export metadata, and write JSX directly in your markup.
+
+```javascript
+function BlogPost() {
+  return <h1>Hello from JSX!</h1>;
+}
+```
+
+<Callout type="info">
+  This is an info callout. Perfect for highlighting important information!
+</Callout>
+
+## Code Examples
+
+Here's some JavaScript with syntax highlighting:
+
+```javascript filename="example.js" showLineNumbers
+const greeting = "Hello, World!";
+
+function sayHello(name) {
+  return `Hello, ${name}!`;
+}
+
+console.log(sayHello("MDX"));
+```
+
+And here's some CSS:
+
+```css filename="styles.css"
+.button {
+  background: linear-gradient(45deg, #007acc, #0099ff);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+```
+
+<Callout type="success" title="Pro Tip">
+  Always include meaningful examples in your blog posts to help readers
+  understand the concepts better!
+</Callout>
+
+## Lists and Formatting
+
+Here are some key benefits of using MDX:
+
+- **Component Integration**: Use React components directly in your content
+- **Type Safety**: Full TypeScript support for your components
+- **Flexibility**: Combine the simplicity of Markdown with the power of JSX
+- **Performance**: Static generation with Next.js for optimal performance
+
+1. First, install the necessary packages
+2. Set up your MDX configuration
+3. Create your first MDX file
+4. Build amazing content!
+
+> "The best way to learn is by doing. Start experimenting with MDX today!" - Anonymous Developer
+
+That's it for this introduction. Happy blogging! 🚀

@@ -29,4 +29,17 @@ export const experienceData = [
       "Created and maintained clear and consistent technical documentation to standardize development workflows, support onboarding, and improve long-term code maintainability.",
     ],
   },
+  {
+    title: "Intern",
+    company: "HCLTech",
+    duration: "Jul 2019 – Jul 2020",
+    location: "Nagpur, India",
+    responsibilities: [
+      "Built a mini-Configuration Management Database (CMDB) to track and manage system assets, including CRUD operations and basic search/filtering.",
+      "Developed a CSV-based data ingestion/export tool with validation and error handling, enabling smoother data transfers across systems.",
+      "Gained hands-on experience with React, Node.js, APIs, and databases, while contributing to automation of manual processes.",
+      "Helped in debugging, documentation, and testing minor features of the internal service.",
+      "Learned and applied Agile practices, version control (Git), and team collaboration tools.",
+    ],
+  },
 ];

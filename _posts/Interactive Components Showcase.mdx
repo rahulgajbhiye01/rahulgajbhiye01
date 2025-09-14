@@ -1,0 +1,174 @@
+---
+title: "Interactive Components Showcase"
+date: "2024-01-25"
+excerpt: "A playground for testing all interactive components and features."
+author: "rahul-gajbhiye"
+tags: ["interactive", "demo", "components"]
+published: false
+---
+
+# Interactive Components Playground
+
+Welcome to our interactive showcase! This post demonstrates various interactive elements you can use in your MDX content.
+
+## Counters Galore
+
+### Basic Counter
+
+<Counter />
+
+### Constrained Counter
+
+<Counter initialValue={50} min={0} max={100} step={10} />
+
+### Negative Range Counter
+
+<Counter initialValue={0} min={-50} max={50} step={5} />
+
+## Media Gallery
+
+### Educational Videos
+
+<YouTube id="Ke90Tje7VS0" title="React in 100 Seconds" />
+
+<Callout type="info" title="Learning Resources">
+  Check out more React tutorials on the Fireship YouTube channel!
+</Callout>
+
+### Social Media Integration
+
+<Tweet id="1234567890" />
+
+## Code Examples with Different Themes
+
+### Dark Theme Code Block
+
+```javascript filename="darkTheme.js" showLineNumbers
+// This code block uses the default dark theme
+const themes = {
+  dark: {
+    background: "#1e1e1e",
+    foreground: "#d4d4d4",
+    accent: "#007acc",
+  },
+  light: {
+    background: "#ffffff",
+    foreground: "#333333",
+    accent: "#0066cc",
+  },
+};
+
+function applyTheme(themeName) {
+  const theme = themes[themeName];
+  document.documentElement.style.setProperty("--bg-color", theme.background);
+  document.documentElement.style.setProperty("--text-color", theme.foreground);
+  document.documentElement.style.setProperty("--accent-color", theme.accent);
+}
+
+// Apply dark theme by default
+applyTheme("dark");
+```
+
+## All Callout Types
+
+<Callout type="info" title="Information">
+  This is informational content that provides helpful context or explanations.
+</Callout>
+
+<Callout type="success" title="Success">
+  Something worked perfectly! This is great news to share with readers.
+</Callout>
+
+<Callout type="warning" title="Warning">
+  Pay attention to this important warning to avoid potential issues.
+</Callout>
+
+<Callout type="error" title="Error">
+  This is a critical error or issue that needs immediate attention.
+</Callout>
+
+## Interactive Combinations
+
+You can combine multiple interactive elements:
+
+<Callout type="info" title="Counter Demo">
+Here's a counter inside a callout:
+
+<Counter initialValue={1} max={10} />
+
+Try incrementing it to see how components work together!
+
+</Callout>
+
+## Complex Code Example
+
+```ts filename="blog-system.ts" showLineNumbers
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { serialize } from "next-mdx-remote/serialize";
+import matter from "gray-matter";
+
+interface BlogPost {
+  slug: string;
+  frontmatter: {
+    title: string;
+    date: string;
+    excerpt: string;
+    tags: string[];
+    published: boolean;
+  };
+  content: string;
+  mdxSource: any;
+}
+
+class BlogSystem {
+  private posts: Map<string, BlogPost> = new Map();
+
+  async loadPost(filePath: string): Promise<BlogPost> {
+    const fileContent = await fs.readFile(filePath, "utf-8");
+    const { data, content } = matter(fileContent);
+
+    const mdxSource = await serialize(content, {
+      parseFrontmatter: true,
+      mdxOptions: {
+        remarkPlugins: [],
+        rehypePlugins: [],
+      },
+    });
+
+    const post: BlogPost = {
+      slug: path.basename(filePath, ".mdx"),
+      frontmatter: data as BlogPost["frontmatter"],
+      content,
+      mdxSource,
+    };
+
+    this.posts.set(post.slug, post);
+    return post;
+  }
+
+  getPost(slug: string): BlogPost | undefined {
+    return this.posts.get(slug);
+  }
+
+  getAllPosts(): BlogPost[] {
+    return Array.from(this.posts.values())
+      .filter((post) => post.frontmatter.published)
+      .sort(
+        (a, b) =>
+          new Date(b.frontmatter.date).getTime() -
+          new Date(a.frontmatter.date).getTime()
+      );
+  }
+
+  searchPosts(query: string): BlogPost[] {
+    return this.getAllPosts().filter(
+      (post) =>
+        post.frontmatter.title.toLowerCase().includes(query.toLowerCase()) ||
+        post.frontmatter.excerpt.toLowerCase().includes(query.toLowerCase()) ||
+        post.content.toLowerCase().includes(query.toLowerCase())
+    );
+  }
+}
+
+export { BlogSystem, type BlogPost };
+```

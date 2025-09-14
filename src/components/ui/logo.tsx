@@ -1,0 +1,29 @@
+import * as React from "react";
+
+const Logo: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 863 863" {...props}>
+    <g>
+      <rect
+        x="1"
+        y="2.5"
+        width="861"
+        height="858"
+        rx="94.83"
+        ry="94.83"
+        fill="transparent"
+      />
+      <polygon
+        points="587.68 554.27 587.68 716.32 452.55 579.93 452.55 620.35 339.03 726.95 339.03 194.34 452.55 87.75 452.55 417.9 587.68 554.27"
+        fill="#a5d6a7"
+      />
+      <path
+        d="M724,201.76l-424.3,462.37-.92-154.18c6.96-6.38,295.85-239.25,303.02-245.8l-396.95,125.64-2.14-152.96,521.29-35.07Z"
+        fill="#a5d6a7"
+        stroke="#0d1117"
+        strokeMiterlimit="10"
+        strokeWidth="8"
+      />
+    </g>
+  </svg>
+);
+export default Logo;

@@ -17,15 +17,15 @@ export const socialLinks = [
     href: "https://www.linkedin.com/in/rahulgajbhiye01",
     icon: FiLinkedin,
   },
-    {
+  {
     href: "https://www.instagram.com/rahulgajbhiye01/",
     icon: FiInstagram,
   },
-    {
-    href: "https://www.threads.net/@rahulgajbhiye01",
+  {
+    href: "https://www.threads.com/@rahulgajbhiye01",
     icon: FaThreads,
   },
-    {
+  {
     href: "https://twitter.com/rahulgajbhiye01",
     icon: FaXTwitter,
   },
@@ -37,5 +37,4 @@ export const socialLinks = [
     href: "https://in.pinterest.com/rahulgajbhiye01",
     icon: RiPinterestLine,
   },
-
 ];

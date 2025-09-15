@@ -8,15 +8,14 @@ export const projectsData = [
     link: "https://lovhabit.vercel.app",
     github: "https://github.com/rahulgajbhiye01/lovhabit",
   },
-  // {
-  //   title: "DevDeck - Developer Portfolio Template",
-  //   description:
-  //     "Open-source modern dev portfolio template with smooth animations, theme switch, and markdown blog.",
-  //   tech: ["Next.js", "Tailwind", "MDX", "Framer Motion"],
-  //   link: "https://devdeck.vercel.app",
-  //   domain: ["Frontend", "Backend"],
-  //   github: "https://github.com/rahulgajbhiye01/devdeck",
-  // },
+  {
+    title: "CASA - Fashion Marketplace",
+    description: "A Gen-Z way to buy cloths, the trendsetters.",
+    tech: ["Next.js"],
+    link: "https://casa-landing.rahulgajbhiye.com/",
+    domain: ["Frontend", "Backend"],
+    github: "https://github.com/rahulgajbhiye01/casa-landing",
+  },
   // {
   //   title: "Dockerized URL Shortener",
   //   description:

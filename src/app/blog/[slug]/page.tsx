@@ -4,6 +4,9 @@ import { createMDXComponents } from "@/components/mdx/mdx-components";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import Image from "next/image";
+import Link from "next/link";
+import { Calendar, Clock, User, ArrowLeft } from "lucide-react";
 
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
@@ -46,7 +49,7 @@ export async function generateMetadata({
   } catch (error) {
     return {
       title: "Post Not Found",
-      description: "The requested blog post could not be found.",
+      description: `The requested blog post could not be found. ${error}`,
     };
   }
 }
@@ -63,90 +66,117 @@ export default async function BlogPost({
     return notFound();
   }
 
-  const components = createMDXComponents(post as any);
+  const components = createMDXComponents(post);
 
   return (
-    <article className="prose prose-lg max-w-4xl mx-auto px-4 py-8">
-      {/* Article Header */}
-      <div className="mb-12 text-center">
-        <h1 className="text-5xl font-bold mb-6 text-gray-900 leading-tight">
-          {post.title}
-        </h1>
+    <div className="bg-background min-h-screen pt-20">
+      <article className="mx-auto max-w-4xl px-6 py-16">
+        {/* Article Header */}
+        <header className="mb-12 text-center">
+          <h1 className="text-foreground mb-6 text-4xl leading-tight font-bold md:text-5xl">
+            {post.title}
+          </h1>
 
-        <div className="flex items-center justify-center space-x-6 text-gray-600 mb-6">
-          <time dateTime={post.date}>
-            {new Date(post.date).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </time>
+          {/* Meta Information */}
+          <div className="text-muted-foreground mb-6 flex flex-wrap items-center justify-center gap-4">
+            <div className="flex items-center gap-2">
+              <Calendar className="h-4 w-4" />
+              <time dateTime={post.date}>
+                {new Date(post.date).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </time>
+            </div>
 
-          {post.readingTime && (
-            <>
-              <span>•</span>
-              <span>{post.readingTime} min read</span>
-            </>
+            {post.readingTime && (
+              <>
+                <span className="text-muted-foreground">•</span>
+                <div className="flex items-center gap-2">
+                  <Clock className="h-4 w-4" />
+                  <span>{post.readingTime} min read</span>
+                </div>
+              </>
+            )}
+
+            {post.author && (
+              <>
+                <span className="text-muted-foreground">•</span>
+                <div className="flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  <span>By {post.author}</span>
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Tags */}
+          {post.tags && post.tags.length > 0 && (
+            <div className="mb-6 flex flex-wrap justify-center gap-2">
+              {post.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-md border border-green-400/30 bg-green-500/10 px-3 py-1 font-mono text-sm text-green-300"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
           )}
 
-          {post.author && (
-            <>
-              <span>•</span>
-              <span>By {post.author}</span>
-            </>
+          {/* Excerpt */}
+          {post.excerpt && (
+            <p className="text-muted-foreground mx-auto max-w-2xl text-lg italic">
+              {post.excerpt}
+            </p>
           )}
-        </div>
+        </header>
 
-        {post.tags && post.tags.length > 0 && (
-          <div className="flex flex-wrap justify-center gap-2 mb-6">
-            {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"
-              >
-                {tag}
-              </span>
-            ))}
+        {/* Cover Image */}
+        {post.coverImage && (
+          <div className="mb-12 overflow-hidden rounded-xl">
+            <Image
+              src={post.coverImage}
+              alt={post.title}
+              width={800}
+              height={400}
+              className="h-96 w-full object-cover shadow-lg"
+            />
           </div>
         )}
 
-        {post.excerpt && (
-          <p className="text-xl text-gray-600 italic max-w-2xl mx-auto">
-            {post.excerpt}
-          </p>
-        )}
-      </div>
+        {/* Article Content */}
+        <section className="prose prose-lg prose-headings:text-foreground prose-p:text-foreground prose-strong:text-foreground prose-a:text-green-400 prose-a:no-underline hover:prose-a:underline prose-blockquote:border-green-400 prose-blockquote:bg-green-500/5 prose-blockquote:text-foreground prose-code:text-green-300 prose-code:bg-green-500/10 prose-pre:bg-gray-900 prose-pre:text-gray-100 max-w-none">
+          <PostProvider frontmatter={post} slug={post.slug}>
+            <MDXRemote
+              source={post.content}
+              components={components}
+              options={{
+                mdxOptions: {
+                  remarkPlugins: [remarkGfm],
+                  rehypePlugins: [
+                    rehypeSlug,
+                    [rehypeAutolinkHeadings, { behavior: "append" }],
+                    rehypeHighlight,
+                  ],
+                },
+              }}
+            />
+          </PostProvider>
+        </section>
 
-      {/* Cover Image */}
-      {post.coverImage && (
-        <div className="mb-12">
-          <img
-            src={post.coverImage}
-            alt={post.title}
-            className="w-full h-96 object-cover rounded-lg shadow-lg"
-          />
+        {/* Back to Blog Link */}
+        <div className="mt-12 text-center">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 rounded-lg border border-green-400/30 bg-green-500/10 px-6 py-3 font-mono text-sm font-semibold text-green-300 transition-all duration-300 hover:border-green-400/50 hover:bg-green-500/20"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Blog
+          </Link>
         </div>
-      )}
-
-      {/* Article Content */}
-      <section className="prose prose-lg max-w-none">
-        <PostProvider frontmatter={post as any} slug={post.slug}>
-          <MDXRemote
-            source={post.content}
-            components={components}
-            options={{
-              mdxOptions: {
-                remarkPlugins: [remarkGfm],
-                rehypePlugins: [
-                  rehypeSlug,
-                  [rehypeAutolinkHeadings, { behavior: "append" }],
-                  rehypeHighlight,
-                ],
-              },
-            }}
-          />
-        </PostProvider>
-      </section>
-    </article>
+      </article>
+    </div>
   );
 }

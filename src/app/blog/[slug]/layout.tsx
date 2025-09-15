@@ -3,9 +3,5 @@ export default function BlogLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <div className="min-h-screen mt-24 flex flex-col justify-center">
-      {children}
-    </div>
-  );
+  return <div className="min-h-screen">{children}</div>;
 }

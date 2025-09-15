@@ -31,7 +31,12 @@ const Navbar = () => {
           <Link href="/#me" className="hover:text-primary text-base transition">
             Me
           </Link>
-          {/* <Link href="/blog" className="text-base transition hover:text-primary">Blogs</Link> */}
+          <Link
+            href="/blog"
+            className="hover:text-primary text-base transition"
+          >
+            Blogs
+          </Link>
         </nav>
 
         {/* Mobile Toggle */}
@@ -72,9 +77,13 @@ const Navbar = () => {
           >
             Me
           </Link>
-          {/* <Link href="/blog" className="text-lg font-medium text-primary transition hover:text-primary" onClick={() => setIsOpen(false)}>
+          <Link
+            href="/blog"
+            className="text-primary hover:text-primary text-lg font-medium transition"
+            onClick={() => setIsOpen(false)}
+          >
             Blogs
-          </Link> */}
+          </Link>
         </div>
       )}
     </header>

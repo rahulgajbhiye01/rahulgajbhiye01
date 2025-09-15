@@ -7,7 +7,7 @@ interface TweetProps {
   hideThread?: boolean;
 }
 
-export function Tweet({ id, hideThread = false }: TweetProps) {
+export function Tweet({ id }: TweetProps) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -19,26 +19,26 @@ export function Tweet({ id, hideThread = false }: TweetProps) {
 
   if (!loaded) {
     return (
-      <div className="border border-gray-200 rounded-lg p-6 my-6 bg-gray-50 animate-pulse">
-        <div className="flex items-center space-x-3 mb-3">
-          <div className="w-12 h-12 bg-gray-300 rounded-full"></div>
+      <div className="my-6 animate-pulse rounded-lg border border-gray-200 bg-gray-50 p-6">
+        <div className="mb-3 flex items-center space-x-3">
+          <div className="h-12 w-12 rounded-full bg-gray-300"></div>
           <div className="space-y-2">
-            <div className="w-24 h-4 bg-gray-300 rounded"></div>
-            <div className="w-16 h-3 bg-gray-300 rounded"></div>
+            <div className="h-4 w-24 rounded bg-gray-300"></div>
+            <div className="h-3 w-16 rounded bg-gray-300"></div>
           </div>
         </div>
         <div className="space-y-2">
-          <div className="h-4 bg-gray-300 rounded w-full"></div>
-          <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+          <div className="h-4 w-full rounded bg-gray-300"></div>
+          <div className="h-4 w-3/4 rounded bg-gray-300"></div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="border border-gray-200 rounded-lg p-6 my-6 bg-white shadow-sm">
-      <div className="flex items-center space-x-3 mb-3">
-        <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+    <div className="my-6 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+      <div className="mb-3 flex items-center space-x-3">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500 font-bold text-white">
           T
         </div>
         <div>
@@ -46,7 +46,7 @@ export function Tweet({ id, hideThread = false }: TweetProps) {
           <div className="text-sm text-gray-500">@twitteruser</div>
         </div>
       </div>
-      <p className="text-gray-800 mb-3">
+      <p className="mb-3 text-gray-800">
         This is a placeholder for tweet content. In a real implementation, you
         would load the actual tweet data.
       </p>

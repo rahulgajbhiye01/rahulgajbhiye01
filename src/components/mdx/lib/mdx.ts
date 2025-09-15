@@ -3,6 +3,22 @@ import path from "path";
 import matter from "gray-matter";
 import type { Post } from "@/types/post";
 
+// Type for raw frontmatter data from gray-matter
+interface RawFrontmatter {
+  slug?: string;
+  title?: string;
+  date?: string;
+  excerpt?: string;
+  author?: string;
+  tags?: string[] | string;
+  enableComments?: boolean;
+  showTableOfContents?: boolean;
+  published?: boolean;
+  coverImage?: string;
+  readingTime?: number;
+  [key: string]: unknown;
+}
+
 const postsDirectory = path.join(process.cwd(), "_posts");
 const POST_EXTENSIONS = [".md", ".mdx"] as const;
 
@@ -51,7 +67,7 @@ function deriveExcerpt(content: string, existing?: unknown): string {
 
 function stripExtension(filename: string): string {
   const ext = path.extname(filename);
-  return POST_EXTENSIONS.includes(ext as any)
+  return POST_EXTENSIONS.includes(ext as (typeof POST_EXTENSIONS)[number])
     ? filename.slice(0, -ext.length)
     : filename;
 }
@@ -90,13 +106,17 @@ export async function getPostBySlug(slug: string): Promise<Post> {
   if (!fullPath) {
     const allFiles = fs.readdirSync(postsDirectory);
     for (const filename of allFiles) {
-      if (POST_EXTENSIONS.includes(path.extname(filename) as any)) {
+      if (
+        POST_EXTENSIONS.includes(
+          path.extname(filename) as (typeof POST_EXTENSIONS)[number],
+        )
+      ) {
         const filePath = path.join(postsDirectory, filename);
         const fileContents = fs.readFileSync(filePath, "utf8");
         const { data } = matter(fileContents);
 
         // Check if this file has a custom slug that matches
-        const customSlug = (data as any).slug;
+        const customSlug = (data as RawFrontmatter).slug;
         if (customSlug && customSlug === baseSlug) {
           fullPath = filePath;
           break;
@@ -123,19 +143,21 @@ export async function getPostBySlug(slug: string): Promise<Post> {
 
   // Use custom slug if provided, otherwise generate from filename
   const finalSlug =
-    (data as any).slug || generateSlugFromFilename(path.basename(fullPath));
+    (data as RawFrontmatter).slug ||
+    generateSlugFromFilename(path.basename(fullPath));
 
+  const rawData = data as RawFrontmatter;
   const normalized: Post = {
     slug: finalSlug,
-    title: String((data as any).title ?? finalSlug),
-    date: toIsoDateOrFallback((data as any).date),
-    excerpt: deriveExcerpt(content, (data as any).excerpt),
-    author: (data as any).author ? String((data as any).author) : undefined,
-    tags: normalizeTags((data as any).tags),
-    enableComments: (data as any).enableComments ?? undefined,
-    showTableOfContents: (data as any).showTableOfContents ?? undefined,
-    published: (data as any).published ?? true,
-    coverImage: (data as any).coverImage ?? undefined,
+    title: String(rawData.title ?? finalSlug),
+    date: toIsoDateOrFallback(rawData.date),
+    excerpt: deriveExcerpt(content, rawData.excerpt),
+    author: rawData.author ? String(rawData.author) : undefined,
+    tags: normalizeTags(rawData.tags),
+    enableComments: rawData.enableComments ?? undefined,
+    showTableOfContents: rawData.showTableOfContents ?? undefined,
+    published: rawData.published ?? true,
+    coverImage: rawData.coverImage ?? undefined,
     readingTime,
     content,
   };
@@ -149,13 +171,18 @@ export function getAllPostSlugs() {
   const slugs: { params: { slug: string } }[] = [];
 
   for (const filename of filenames) {
-    if (POST_EXTENSIONS.includes(path.extname(filename) as any)) {
+    if (
+      POST_EXTENSIONS.includes(
+        path.extname(filename) as (typeof POST_EXTENSIONS)[number],
+      )
+    ) {
       const filePath = path.join(postsDirectory, filename);
       const fileContents = fs.readFileSync(filePath, "utf8");
       const { data } = matter(fileContents);
 
       // Use custom slug if provided, otherwise generate from filename
-      const slug = (data as any).slug || generateSlugFromFilename(filename);
+      const slug =
+        (data as RawFrontmatter).slug || generateSlugFromFilename(filename);
 
       slugs.push({
         params: {
@@ -171,7 +198,7 @@ export function getAllPostSlugs() {
 export async function getAllPosts(): Promise<Post[]> {
   const slugs = getAllPostSlugs();
   const posts = await Promise.all(
-    slugs.map((s) => getPostBySlug(s.params.slug))
+    slugs.map((s) => getPostBySlug(s.params.slug)),
   );
   return posts
     .filter((post) => post.published !== false)

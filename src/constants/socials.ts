@@ -1,10 +1,4 @@
-import {
-  FiGithub,
-  FiYoutube,
-  FiLinkedin,
-  FiDownload,
-  FiInstagram,
-} from "react-icons/fi";
+import { FiGithub, FiYoutube, FiLinkedin, FiInstagram } from "react-icons/fi";
 import { FaXTwitter, FaThreads } from "react-icons/fa6";
 import { RiPinterestLine } from "react-icons/ri";
 

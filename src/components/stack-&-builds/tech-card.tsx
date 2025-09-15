@@ -1,13 +1,8 @@
-"use client";
-
 import { Domain, domainOrder, Skills } from "@/constants/tech";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Code2 } from "lucide-react";
 
 const SkillCard = ({ skillsData }: { skillsData: Skills[] }) => {
-  const [selectedDomain, setSelectedDomain] = useState<Domain | null>(null);
-  const [selectedSkill, setSelectedSkill] = useState<string | null>(null);
-
   const domainsData = useMemo(() => {
     const map: Record<Domain, string[]> = {} as Record<Domain, string[]>;
 
@@ -29,14 +24,10 @@ const SkillCard = ({ skillsData }: { skillsData: Skills[] }) => {
       {domainsData.map((domainData) => (
         <div
           key={domainData.domain}
-          className={`group relative overflow-hidden rounded-xl border transition-all duration-300 ${
-            selectedDomain === domainData.domain
-              ? "border-green-400/50 bg-green-500/10 shadow-lg shadow-green-500/20"
-              : "border-border/50 bg-card/50 hover:border-green-400/30 hover:bg-green-500/5 hover:shadow-md"
-          }`}
+          className="group border-border/50 bg-card/50 relative overflow-hidden rounded-xl border transition-all duration-300 hover:border-green-400/30 hover:bg-green-500/5 hover:shadow-md"
         >
           {/* Domain Header */}
-          <div className="cursor-pointer p-4">
+          <div className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Code2 className="h-4 w-4 text-green-400" />
@@ -44,9 +35,6 @@ const SkillCard = ({ skillsData }: { skillsData: Skills[] }) => {
                   {domainData.domain}
                 </h3>
               </div>
-              <span className="text-muted-foreground text-xs">
-                {domainData.skills.length}
-              </span>
             </div>
           </div>
 
@@ -54,16 +42,12 @@ const SkillCard = ({ skillsData }: { skillsData: Skills[] }) => {
           <div className="px-4 pb-4">
             <div className="flex flex-wrap gap-1.5">
               {domainData.skills.map((skill) => (
-                <button
+                <span
                   key={skill}
-                  className={`inline-block cursor-pointer rounded-md border px-2 py-1 font-mono text-xs transition-all duration-200 ${
-                    selectedSkill === skill
-                      ? "border-green-400/50 bg-green-500/20 text-green-300 shadow-sm"
-                      : "border-border/30 bg-muted/50 text-muted-foreground hover:border-green-400/40 hover:bg-green-500/10 hover:text-green-300"
-                  }`}
+                  className="border-border/30 bg-muted/50 text-muted-foreground inline-block rounded-md border px-2 py-1 font-mono text-xs"
                 >
                   {skill}
-                </button>
+                </span>
               ))}
             </div>
           </div>

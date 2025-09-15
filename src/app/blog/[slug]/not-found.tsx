@@ -1,18 +1,20 @@
 import React from "react";
+import Link from "next/link";
 
 const NotFound = () => {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 text-center">
-      <h1 className="text-4xl font-bold mb-4 text-gray-900">Post Not Found</h1>
-      <p className="text-gray-600 mb-8">
-        The blog post you're looking for doesn't exist or has been moved.
+    <div className="mx-auto max-w-4xl px-4 py-8 text-center">
+      <h1 className="mb-4 text-4xl font-bold text-gray-900">Post Not Found</h1>
+      <p className="mb-8 text-gray-600">
+        The blog post you&apos;re looking for doesn&apos;t exist or has been
+        moved.
       </p>
-      <a
+      <Link
         href="/blog"
-        className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+        className="inline-block rounded-lg bg-blue-600 px-6 py-3 text-white transition-colors hover:bg-blue-700"
       >
         Back to Blog
-      </a>
+      </Link>
     </div>
   );
 };

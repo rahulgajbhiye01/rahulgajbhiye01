@@ -39,7 +39,7 @@ const SimpleElegantHero = () => {
           <div className="mb-6 flex items-center justify-center gap-2">
             <Sparkles className="h-5 w-5 text-green-400" />
             <span className="text-muted-foreground font-mono text-sm">
-              Hello, I'm
+              Hello, I&apos;m
             </span>
           </div>
 
@@ -68,7 +68,7 @@ const SimpleElegantHero = () => {
           <p className="text-muted-foreground mx-auto mb-12 max-w-2xl text-lg leading-relaxed">
             Currently diving deep into{" "}
             <span className="font-medium text-green-400">DevOps & Cloud</span>{" "}
-            to create high-performance systems. Let's connect and turn your
+            to create high-performance systems. Let&apos;s connect and turn your
             ideas into reality.
           </p>
 

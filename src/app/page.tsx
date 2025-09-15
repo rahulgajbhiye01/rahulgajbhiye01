@@ -1,12 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import Hero from "@/components/hero";
 
 import { experienceData } from "@/constants/experience";
-import XpCard from "@/components/xp/card";
+import XpCard from "@/components/xp/xp-card";
 
-import AchievementCard from "@/components/achievements/card";
+import AchievementCard from "@/components/xp/achievement-card";
 import { achievementsData } from "@/constants/certs";
 
 import { projectsData } from "@/constants/projects";

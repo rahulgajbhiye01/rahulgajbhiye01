@@ -50,10 +50,6 @@ export const skillsData: Skills[] = [
     domain: [Domain.Core],
   },
   {
-    skill: "NPM",
-    domain: [Domain.Core],
-  },
-  {
     skill: "Jest",
     domain: [Domain.Core],
   },
@@ -78,7 +74,7 @@ export const skillsData: Skills[] = [
 
   // Backend
   {
-    skill: "REST APIs",
+    skill: "REST",
     domain: [Domain.Backend],
   },
   {

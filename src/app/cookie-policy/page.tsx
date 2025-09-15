@@ -1,8 +1,6 @@
 import React from "react";
 
-type Props = {};
-
-const CookiePolicy = (props: Props) => {
+const CookiePolicy = () => {
   return <div>page</div>;
 };
 

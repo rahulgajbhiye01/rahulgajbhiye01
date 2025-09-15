@@ -27,10 +27,10 @@ const Footer = () => {
             </div>
 
             <p className="text-muted-foreground leading-relaxed">
-              I'm Rahul, a full-stack developer from India who loves building
-              tools that make life easier for developers. When I'm not coding,
-              I'm in the gym, experimenting with fitness, or creating content
-              about self-improvement and tech.
+              I&apos;m Rahul, a full-stack developer from India who loves
+              building tools that make life easier for developers. When I&apos;m
+              not coding, I&apos;m in the gym, experimenting with fitness, or
+              creating content about self-improvement and tech.
             </p>
 
             <div className="flex flex-wrap gap-2">
@@ -50,14 +50,14 @@ const Footer = () => {
             <div className="flex items-center gap-3">
               <Heart className="h-5 w-5 text-green-400" />
               <h2 className="text-foreground font-mono text-xl font-semibold">
-                Let's Connect
+                Let&apos;s Connect
               </h2>
             </div>
 
             <p className="text-muted-foreground leading-relaxed">
               I believe in learning in public, building fast, and sharing
-              everything along the way. Let's connect and turn your ideas into
-              reality.
+              everything along the way. Let&apos;s connect and turn your ideas
+              into reality.
             </p>
 
             <div className="flex flex-wrap gap-3">

@@ -12,7 +12,7 @@ export const projectsData = [
     title: "CASA - Fashion Marketplace",
     description: "A Gen-Z way to buy cloths, the trendsetters.",
     tech: ["Next.js"],
-    link: "https://casa-landing.rahulgajbhiye.com/",
+    link: "https://casa.rahulgajbhiye.com/",
     domain: ["Frontend", "Backend"],
     github: "https://github.com/rahulgajbhiye01/casa-landing",
   },

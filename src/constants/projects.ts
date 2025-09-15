@@ -30,7 +30,7 @@ export const projectsData = [
     title: "Cryptosh",
     description:
       "A crypto-to-fiat conversion tool that lets you instantly compare exchange rates across multiple currencies and platforms, helping you find the most accurate and up-to-date prices.",
-    tech: ["Next.js"],
+    tech: ["Next.js", "Third Party API"],
     domain: ["Frontend", "Backend"],
     link: "https://cryptosh.rahulgajbhiye.com/",
     github: "https://github.com/rahulgajbhiye01/cryptosh",
@@ -39,9 +39,9 @@ export const projectsData = [
     title: "Letter",
     description:
       "A crypto-to-fiat conversion tool that lets you instantly compare exchange rates across multiple currencies and platforms, helping you find the most accurate and up-to-date prices.",
-    tech: ["Next.js", "Third Party API"],
+    tech: ["Next.js", "Clerk"],
     domain: ["Frontend", "Backend"],
-    link: "https://cryptsosh.rahulgajbhiye.com",
-    github: "https://github.com/rahulgajbhiye01/cryptosh",
+    link: "https://letter.rahulgajbhiye.com",
+    github: "https://github.com/rahulgajbhiye01/letter",
   },
 ];

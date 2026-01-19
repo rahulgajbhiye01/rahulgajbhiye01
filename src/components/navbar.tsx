@@ -31,12 +31,6 @@ const Navbar = () => {
           <Link href="/#me" className="hover:text-primary text-base transition">
             Me
           </Link>
-          <Link
-            href="/blog"
-            className="hover:text-primary text-base transition"
-          >
-            Blogs
-          </Link>
         </nav>
 
         {/* Mobile Toggle */}
@@ -76,13 +70,6 @@ const Navbar = () => {
             onClick={() => setIsOpen(false)}
           >
             Me
-          </Link>
-          <Link
-            href="/blog"
-            className="text-primary hover:text-primary text-lg font-medium transition"
-            onClick={() => setIsOpen(false)}
-          >
-            Blogs
           </Link>
         </div>
       )}

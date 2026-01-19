@@ -1,7 +1,13 @@
 {
-  "name": "rahulgajbhiye.com",
+  "name": "rahulgajbhiye01",
   "version": "1.0",
   "private": true,
+  "author": "Rahul Gajbhiye",
+  "keywords": [
+    "Rahul Gajbhiye",
+    "Developer",
+    "Full Stack"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -52,7 +52,7 @@ const SimpleElegantHero = () => {
           <div className="mb-8 flex items-center justify-center gap-3">
             <Code2 className="h-6 w-6 text-green-400" />
             <h2 className="text-muted-foreground font-mono text-xl md:text-2xl">
-              Full-Stack Developer
+              Your MVP Engineer
             </h2>
           </div>
 

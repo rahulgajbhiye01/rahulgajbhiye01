@@ -1,0 +1,12 @@
+---
+title: The metrics that matter during a deployment
+description: A focused set of signals for deciding whether a rollout is healthy.
+tags: [Observability, Deployments, SRE]
+date: 2026-04-08
+---
+
+Deployment dashboards work best when they answer one question: should this rollout continue? Start with user-facing error rate and latency, then add saturation signals for the dependency most likely to constrain the service.
+
+Compare the new version with a stable baseline and keep the time window short. A delayed aggregate can make a failing rollout appear healthy long enough to increase the blast radius.
+
+Finally, document the rollback decision. Teams should not need to debate which signal matters while customers are affected.

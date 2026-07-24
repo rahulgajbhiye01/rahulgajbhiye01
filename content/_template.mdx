@@ -1,0 +1,110 @@
+---
+# Required: a concise, specific title for the listing and page.
+title: "Title of the entry"
+# Required: one sentence explaining the value of the entry.
+description: "What this contains and why it is useful."
+# Required: use YYYY-MM-DD so the feed can sort newest first.
+date: 2026-07-24
+# Required: one primary category. Suggested values: Note, Project, Architecture,
+# Cheatsheet, System Design, Runbook, Postmortem, Guide, Snippet, or Experiment.
+category: Note
+# Optional: set true to include this in the small Selected work shelf on the home page.
+selected: false
+# Optional: supporting topics, tools, systems, or practices.
+tags: [Kubernetes, Observability]
+# Optional project links. Remove any that do not apply.
+githubUrl: https://github.com/username/repository
+liveUrl: https://example.com
+---
+
+# Title of the entry
+
+Write the content here. The category appears separately from these supporting tags.
+
+## MDX component reference
+
+Use these components anywhere below the front matter. They work alongside normal
+Markdown headings, lists, links, blockquotes, and fenced code blocks.
+
+## Native Markdown examples
+
+Normal GitHub and Obsidian Markdown works without a component.
+
+> Blockquotes are useful for a short principle or source note.
+
+- [x] Review the deployment plan
+- [ ] Confirm the rollback command
+
+| Signal      | Healthy    | Investigate |
+| ----------- | ---------- | ----------- |
+| Error rate  | `< 1%`     | `> 2%`      |
+| p95 latency | `< 250 ms` | `> 500 ms`  |
+
+```bash
+kubectl rollout status deployment/api --timeout=90s
+```
+
+### Callout
+
+<Callout type="tip">
+  Use `note`, `tip`, `warning`, or `danger` to add an important aside.
+</Callout>
+
+### Details
+
+<Details summary="Show implementation details">
+  Put optional commands, decisions, or background here.
+</Details>
+
+### Link card
+
+<LinkCard title="Useful reference" href="https://example.com">
+  Add a short description of an external resource.
+</LinkCard>
+
+### Code block
+
+<CodeBlock title="deploy.sh" language="bash">
+  {`kubectl rollout status deployment/api --timeout=90s`}
+</CodeBlock>
+
+### Terminal output
+
+<Terminal title="Verify a deployment">
+  {`$ kubectl get pods -n production\nNAME                   READY   STATUS\napi-6d7d5c8b8f-rm92k   1/1     Running`}
+</Terminal>
+
+### File tree
+
+<FileTree title="Repository structure">
+  {`infra/\n├── modules/\n├── environments/\n└── README.md`}
+</FileTree>
+
+### API endpoint
+
+<ApiEndpoint method="GET" path="/health">
+  Returns readiness and dependency status for the service.
+</ApiEndpoint>
+
+### Checklist
+
+<Checklist
+  title="Before deploying"
+  items={["Review error budget", "Confirm rollback", "Monitor latency"]}
+/>
+
+### Metric
+
+<Metric
+  label="p95 latency"
+  value="184 ms"
+  detail="During the first 15 minutes of rollout."
+/>
+
+### Figure
+
+<Figure
+  src="/images/architecture.png"
+  alt="Service architecture diagram"
+  caption="Request flow through the API and queue."
+/>

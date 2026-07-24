@@ -1,0 +1,125 @@
+---
+title: AWS CLI Cheatsheet
+description: A practical reference for configuring the AWS CLI and common usage of AWS services.
+category: Cheatsheet
+selected: true
+tags: [AWS, AWS CLI v2]
+date: 2026-07-23
+---
+
+## Configure the CLI
+
+If using SSO: IAM Identity Center, you can log in with:
+
+```bash
+# You will be prompted for an SSO session name, Default client Region, Output format and Login with URL.
+aws configure sso
+
+# To login after configuring SSO.
+aws sso login
+```
+
+## Identity and account
+
+```bash
+# Show the active IAM identity
+aws sts get-caller-identity
+
+# List IAM users
+aws iam list-users
+```
+
+## Compute
+
+### EC2
+
+```bash
+# List instances
+aws ec2 describe-instances
+
+# Start, stop, or reboot an instance
+aws ec2 start-instances --instance-ids i-1234567890abcdef0
+aws ec2 stop-instances --instance-ids i-1234567890abcdef0
+aws ec2 reboot-instances --instance-ids i-1234567890abcdef0
+```
+
+### Lambda
+
+```bash
+aws lambda list-functions
+aws lambda invoke --function-name MyFunction output.json
+```
+
+### ECS and EKS
+
+```bash
+aws ecs list-clusters
+aws ecs list-services --cluster my-cluster
+aws ecs list-tasks --cluster my-cluster
+
+aws eks list-clusters
+aws eks update-kubeconfig --region us-east-1 --name my-cluster
+```
+
+## Storage and containers
+
+### S3
+
+```bash
+# List buckets and files
+aws s3 ls
+aws s3 ls s3://my-bucket
+
+# Copy, sync, and remove files
+aws s3 cp file.txt s3://my-bucket/
+aws s3 sync ./folder s3://my-bucket/folder
+aws s3 rm s3://my-bucket/file.txt
+```
+
+### ECR login
+
+```bash
+aws ecr get-login-password \
+  | docker login \
+  --username AWS \
+  --password-stdin <account-id>.dkr.ecr.<region>.amazonaws.com
+```
+
+## Data, logs, and infrastructure
+
+```bash
+# CloudWatch
+aws logs describe-log-groups
+aws logs describe-log-streams --log-group-name /aws/lambda/MyFunction
+
+# RDS
+aws rds describe-db-instances
+aws rds start-db-instance --db-instance-identifier mydb
+aws rds stop-db-instance --db-instance-identifier mydb
+
+# DynamoDB
+aws dynamodb list-tables
+aws dynamodb scan --table-name MyTable
+
+# CloudFormation
+aws cloudformation list-stacks
+aws cloudformation describe-stacks --stack-name my-stack
+```
+
+## Global options
+
+| Need                 | Command                                                                                     |
+| -------------------- | ------------------------------------------------------------------------------------------- |
+| Use a region         | `aws ec2 describe-instances --region us-west-2`                                             |
+| Use a profile        | `aws s3 ls --profile dev`                                                                   |
+| Format output        | `aws ec2 describe-instances --output table`                                                 |
+| Filter with JMESPath | `aws ec2 describe-instances --query "Reservations[*].Instances[*].[InstanceId,State.Name]"` |
+
+## Help
+
+```bash
+aws help
+aws ec2 help
+aws ec2 describe-instances help
+aws --version
+```

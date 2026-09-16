@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: "%s | Rahul Gajbhiye",
   },
   description:
-    "Rahul Gajbhiye writes about systems, software delivery, DevOps, and practical product thinking.",
+    "Rahul Gajbhiye builds software and writes about systems, delivery, and product craft.",
   keywords: [
     "Rahul Gajbhiye",
     "DevOps",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Rahul Gajbhiye",
     description:
-      "DevOps engineer and writer sharing systems thinking, practical engineering notes, and product insights.",
+      "Software, systems, and writing by Rahul Gajbhiye. Apps, notes, and how to work together.",
     url: "https://rahulgajbhiye.com",
     siteName: "Rahul Gajbhiye",
     locale: "en_US",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Rahul Gajbhiye",
     description:
-      "DevOps engineer and writer sharing systems thinking, practical engineering notes, and product insights.",
+      "Software, systems, and writing by Rahul Gajbhiye. Apps, notes, and how to work together.",
   },
   robots: {
     index: true,

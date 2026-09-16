@@ -23,9 +23,10 @@ Do not invent `pnpm test`. It does not exist.
 
 Until a test suite exists, after behavior changes run:
 
-1. `pnpm lint`
-2. `pnpm build`
-3. Manual check of changed routes in the browser (or curl against `pnpm dev`)
+1. `pnpm build` (this is the compile/typecheck gate)
+2. Manual check of changed routes
+
+`pnpm lint` currently fails because TypeScript 7.0.2 is unsupported by typescript-eslint (see `docs/TROUBLESHOOTING.md`). Do not treat that as a regression of a feature change.
 
 For the Phase 1 IA work, the checklist in `docs/IMPLEMENTATION_PLAN.md` (Phase 1 verify) is mandatory.
 

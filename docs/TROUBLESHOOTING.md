@@ -1,6 +1,12 @@
-# Troubleshooting
+## `pnpm lint` fails on TypeScript 7
 
-Only issues observed in this repository or planning.
+**Symptoms:** `typescript-eslint does not support TS 7.0`.
+
+**Cause:** `package.json` has `typescript` 7.0.2; `eslint-config-next` pulls typescript-eslint 8.x which does not support TS 7.
+
+**Solution:** Pre-existing. Do not treat as a Phase 1 regression. `pnpm build` is the typecheck gate. Fixing this is Phase 4.
+
+**Verification:** Confirmed independent of the IA change.
 
 ---
 

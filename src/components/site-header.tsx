@@ -14,27 +14,26 @@ export function SiteHeader() {
             </Link>
           </h1>
           <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted">
-            <span className="font-bold">DevOps engineer</span>
+            <span className="font-bold">Builder</span>
             <span aria-hidden="true">/</span>
-            <span>Writer</span>
+            <span>Teacher</span>
           </div>
         </div>
-        <nav aria-label="Elsewhere" className="w-full sm:w-auto">
+        <nav aria-label="Primary" className="w-full sm:w-auto">
           <ul className="flex min-w-max items-center gap-5 pb-1 sm:gap-4 sm:pb-0">
             <li>
-              <Link
-                href="/projects"
-                className="text-muted hover:text-foreground"
-              >
+              <Link href="/projects" className="text-muted hover:text-foreground">
                 Projects
               </Link>
             </li>
             <li>
-              <Link
-                href="/articles"
-                className="text-muted hover:text-foreground"
-              >
-                Articles
+              <Link href="/writing" className="text-muted hover:text-foreground">
+                Writing
+              </Link>
+            </li>
+            <li>
+              <Link href="/services" className="text-muted hover:text-foreground">
+                Services
               </Link>
             </li>
             <li>

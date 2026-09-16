@@ -68,6 +68,8 @@ Empty App Router directories (no `page.tsx`): `src/app/articles`, `src/app/proje
 
 ## Data flow
 
+## Data flow
+
 ### Read content (current)
 
 ```text
@@ -77,36 +79,14 @@ Server Component calls getContentItems / getContentItem / getSelectedContentItem
  ↓
 Recursive readdir of content/
  ↓
+Skip empty files and `_` prefixes
+ ↓
 parseMdx (frontmatter + body)
  ↓
-getContentIdentity (folder name and/or frontmatter kind/collection)
+Folder or frontmatter kind → ContentKind → /{plural}/{slug}
  ↓
-Render list (ContentCard) or MDXRemote body
+Render list (ContentCard / KindListPage) or MDXRemote body
 ```
-
-`getContentItem` always loads **all** files then finds one. Fine at current scale.
-
-### Planned identity (not implemented)
-
-Folder first segment maps to kind:
-
-- `projects` → `project` → URL `/projects/{slug}`
-- `articles` → `article` → URL `/articles/{slug}` (today `kindRoutes.article` is `"article"`, singular)
-- `cheatsheets` → `cheatsheet` → `/cheatsheets/{slug}`
-- `poetry` → `poetry` → `/poetry/{slug}`
-- `gear` → `gear` → `/gear/{slug}` (folder does not exist yet)
-- Frontmatter `kind: blog` → treat as `article`
-- Skip empty files
-- Title fallback: first markdown `#` heading, then slug
-- Missing date: do not use `1970-01-01` in the UI
-
-Collections (`technical` | `personal` | `favorites`) exist on `ContentItem` and power `/technical` etc. **Planned:** stop using collections for routing.
-
-### Detail routing (current vs planned)
-
-**Current:** both `src/app/[kind]/[slug]/page.tsx` and copies at `project/`, `article/`, `cheatsheet/`, `lab/`. The `article` copy queries section `"blog"`, which does not match folder-inferred `articles`.
-
-**Planned:** only `[kind]/[slug]` with allowed segments `projects`, `articles`, `cheatsheets`, `poetry`, `gear`.
 
 ## Key design decisions
 
@@ -136,7 +116,7 @@ See `docs/DECISIONS.md`. Short version:
 - No auth, no user input writes.
 - Archive search is client-side over props already sent to the browser (no secret content).
 - External links in badges should keep `rel` where used (`sub-header` uses `noopener noreferrer`).
-- Affiliate disclosure is **planned** for `/gear`; not implemented.
+- Affiliate disclosure is on `/gear` and gear detail pages. Affiliate badges use `rel="sponsored noopener noreferrer"`.
 - Do not commit `.env*` files.
 
 ## Scalability

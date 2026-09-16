@@ -4,29 +4,34 @@ import { getContentItems } from "@/lib/content";
 
 const baseUrl = "https://rahulgajbhiye.com";
 
+const indexPaths = [
+  "/",
+  "/projects",
+  "/writing",
+  "/services",
+  "/about",
+  "/gear",
+  "/poetry",
+  "/archive",
+] as const;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await getContentItems();
 
   const postEntries = posts.map((post) => ({
     url: `${baseUrl}${post.route}`,
-    lastModified: new Date(post.date),
+    lastModified: post.date ? new Date(post.date) : new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
 
   return [
-    {
-      url: baseUrl,
+    ...indexPaths.map((path, index) => ({
+      url: path === "/" ? baseUrl : `${baseUrl}${path}`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/archive`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
+      changeFrequency: "weekly" as const,
+      priority: index === 0 ? 1 : 0.8,
+    })),
     ...postEntries,
   ];
 }

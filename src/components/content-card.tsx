@@ -15,7 +15,7 @@ type ContentCardProps = {
   category?: string;
   kind?: string;
   tags: readonly string[];
-  date: string;
+  date?: string;
   readingTime: string;
   links?: readonly ContentLink[];
   compact?: boolean;
@@ -33,6 +33,8 @@ export function ContentCard({
   links = [],
   compact = false,
 }: ContentCardProps) {
+  const meta = [date, readingTime].filter(Boolean).join(" · ");
+
   return (
     <article
       className={`group border-t border-border transition-colors duration-200 hover:border-muted ${compact ? "py-5 sm:py-6" : "py-6 sm:py-7"} first:border-t-0 first:pt-0`}
@@ -54,9 +56,9 @@ export function ContentCard({
           ) : null}
         </div>
 
-        <p className="shrink-0 font-mono text-xs text-muted sm:pt-1">
-          {date} · {readingTime}
-        </p>
+        {meta ? (
+          <p className="shrink-0 font-mono text-xs text-muted sm:pt-1">{meta}</p>
+        ) : null}
       </div>
 
       <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-3">

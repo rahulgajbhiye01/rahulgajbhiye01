@@ -40,9 +40,8 @@ export default function SubHeader() {
   return (
     <div className="flex flex-col items-start gap-4 pb-8 pt-2 sm:pb-10 sm:pt-2">
       <p className="max-w-xl text-sm leading-7 text-muted">
-        I build dependable software and the systems around it—bridging product
-        thinking, engineering craft, and the practical details that keep work
-        running well.
+        I build software, teach the craft around it, and publish from this
+        site first. Apps, writing, and how to work with me all live here.
       </p>
 
       <ul className="flex min-w-max items-center gap-5 pb-1 sm:gap-4 sm:pb-0">

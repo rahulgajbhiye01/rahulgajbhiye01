@@ -1,28 +1,34 @@
 import Link from "next/link";
 
 import { ContentCard } from "@/components/content-card";
-import { getContentItems, type ContentCollection } from "@/lib/content";
+import { getContentItems, type ContentKind } from "@/lib/content";
 
-type CollectionPageProps = {
-  collection: ContentCollection;
+type KindListPageProps = {
+  kinds: ContentKind | ContentKind[];
   title: string;
   description: string;
+  emptyMessage?: string;
+  backHref?: string;
+  backLabel?: string;
 };
 
-export async function CollectionPage({
-  collection,
+export async function KindListPage({
+  kinds,
   title,
   description,
-}: CollectionPageProps) {
-  const items = await getContentItems(collection);
+  emptyMessage = "Nothing published here yet.",
+  backHref = "/",
+  backLabel = "← Back to home",
+}: KindListPageProps) {
+  const items = await getContentItems(kinds);
 
   return (
     <main className="flex flex-col py-10 sm:py-14">
       <Link
-        href="/"
+        href={backHref}
         className="text-sm text-muted transition-colors duration-200 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
       >
-        ← Back to home
+        {backLabel}
       </Link>
       <div className="mb-8 mt-6 max-w-4xl">
         <h1 className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-accent">
@@ -36,7 +42,7 @@ export async function CollectionPage({
         ))}
       </div>
       {items.length === 0 ? (
-        <p className="py-12 text-sm text-muted">Nothing published here yet.</p>
+        <p className="py-12 text-sm text-muted">{emptyMessage}</p>
       ) : null}
     </main>
   );

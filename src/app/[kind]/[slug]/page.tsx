@@ -5,22 +5,25 @@ import { notFound } from "next/navigation";
 import { ExternalLinkBadge } from "@/components/external-link-badge";
 import { MdxContent } from "@/components/mdx-content";
 import { TagList } from "@/components/tag-list";
-import { getContentItems } from "@/lib/content";
+import { allowedRouteKinds, getContentItems } from "@/lib/content";
 
 type Props = { params: Promise<{ kind: string; slug: string }> };
 
 async function findItem(params: Props["params"]) {
   const { kind, slug } = await params;
+  if (!allowedRouteKinds.has(kind)) return undefined;
   return (await getContentItems()).find(
     (item) => item.route === `/${kind}/${slug}`,
   );
 }
 
 export async function generateStaticParams() {
-  return (await getContentItems()).map((item) => {
-    const [, kind, slug] = item.route.split("/");
-    return { kind, slug };
-  });
+  return (await getContentItems())
+    .map((item) => {
+      const [, kind, slug] = item.route.split("/");
+      return { kind, slug };
+    })
+    .filter(({ kind }) => allowedRouteKinds.has(kind));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -33,6 +36,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ContentPage({ params }: Props) {
   const item = await findItem(params);
   if (!item) notFound();
+
+  const showReadingTime = item.kind !== "poetry" && item.kind !== "gear";
 
   return (
     <main className="flex flex-col py-10 sm:py-14 lg:py-16">
@@ -68,6 +73,13 @@ export default async function ContentPage({ params }: Props) {
           </p>
         ) : null}
 
+        {item.kind === "gear" ? (
+          <p className="mt-5 text-sm leading-7 text-muted">
+            Some links on this page are affiliate links. I may earn a commission
+            if you buy through them, at no extra cost to you.
+          </p>
+        ) : null}
+
         <div className="mt-8 flex flex-col gap-4 border-t border-border/70 pt-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
             {item.links.map((link) => (
@@ -76,13 +88,11 @@ export default async function ContentPage({ params }: Props) {
             <TagList tags={item.tags} label={`${item.title} topics`} />
           </div>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[0.72rem] uppercase tracking-[0.2em] text-muted sm:text-xs">
-            <time dateTime={item.date}>{item.date}</time>
-            {item.kind !== "quote" && item.kind !== "tanka" ? (
-              <>
-                <span className="text-border/80">•</span>
-                <span>{item.readingTime}</span>
-              </>
+            {item.date ? <time dateTime={item.date}>{item.date}</time> : null}
+            {item.date && showReadingTime ? (
+              <span className="text-border/80">•</span>
             ) : null}
+            {showReadingTime ? <span>{item.readingTime}</span> : null}
           </div>
         </div>
 

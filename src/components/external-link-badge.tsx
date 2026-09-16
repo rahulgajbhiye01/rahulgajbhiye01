@@ -20,7 +20,7 @@ export function ExternalLinkBadge({ href, label }: ExternalLinkBadgeProps) {
     <a
       href={href}
       target="_blank"
-      rel="noreferrer"
+      rel={label.toLowerCase().includes("affiliate") ? "sponsored noopener noreferrer" : "noopener noreferrer"}
       aria-label={label}
       title={label}
       className="py-1 font-mono text-muted"

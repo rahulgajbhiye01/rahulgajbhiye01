@@ -22,13 +22,13 @@ Status: **COMPLETED** (site exists and builds as a content-driven Next.js app).
 
 ## Phase 1 — Personal brand IA
 
-Status: **NEXT** (documentation exists; application code still on the old IA).
+Status: **COMPLETED** (2026-09-16)
 
-Approved sitemap: header **Projects · Writing · Services · About**. Gear at `/gear` (not in header). Writing hub. Kind-based permalinks.
+Approved sitemap is live: header **Projects · Writing · Services · About**. Gear at `/gear` (not in header). Writing hub. Kind-based permalinks.
 
 ### 1.1 Content identity
 
-Status: **NEXT**
+Status: **COMPLETED**
 
 - **Objective:** Map folders to kinds and plural URLs; skip empty files; drop collection routing; title/date fallbacks; add `gear` kind.
 - **Dependencies:** None.
@@ -45,7 +45,7 @@ Status: **NEXT**
 
 ### 1.2 Writing hub and kind indexes
 
-Status: **not started** (depends on 1.1)
+Status: **COMPLETED**
 
 - **Objective:** `/writing` lists articles + cheatsheets. `/projects`, `/gear`, `/poetry` list their kinds. No `/articles` or `/cheatsheets` index pages.
 - **Relevant files:** `src/components/collection-page.tsx` (generalize to one-or-more kinds), `src/app/writing/page.tsx` (new), `src/app/projects/page.tsx`, `src/app/gear/page.tsx`, `src/app/poetry/page.tsx`
@@ -54,7 +54,7 @@ Status: **not started** (depends on 1.1)
 
 ### 1.3 Commercial pages
 
-Status: **not started**
+Status: **COMPLETED**
 
 - **Objective:** Real `/services` and `/about` (structured layout, not MDX). Home: Services CTA, featured projects, latest writing, quiet Gear link. Light chrome voice (not “DevOps engineer” as job pitch).
 - **Relevant files:** `src/app/services/page.tsx` (currently empty), `src/app/about/page.tsx` (heading only), `src/app/page.tsx`, `src/components/sub-header.tsx`, `src/components/site-header.tsx`
@@ -63,7 +63,7 @@ Status: **not started**
 
 ### 1.4 Single detail route
 
-Status: **not started** (can overlap 1.2)
+Status: **COMPLETED**
 
 - **Objective:** Keep `src/app/[kind]/[slug]/page.tsx` only. Allow `projects`, `articles`, `cheatsheets`, `poetry`, `gear`.
 - **Delete:** `src/app/project/`, `article/`, `cheatsheet/`, `lab/`, `technical/`, `personal/`, `favorites/`
@@ -71,7 +71,7 @@ Status: **not started** (can overlap 1.2)
 
 ### 1.5 Nav, footer, sitemap
 
-Status: **not started**
+Status: **COMPLETED**
 
 - **Objective:** Header four items. Footer: Projects, Writing, Services, Gear, Poetry, Archive, About. Drop `/side-quests`, `/timeless`, `/mind`, `/body`. Sitemap includes new indexes + item routes.
 - **Relevant files:** `src/components/site-header.tsx`, `src/components/site-footer.tsx`, `src/app/sitemap.ts`

@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Rahul Gajbhiye — DevOps engineer and writer";
+export const alt = "Rahul Gajbhiye — builder and teacher";
 export const size = {
   width: 1200,
   height: 630,
@@ -26,7 +26,7 @@ export default function OpenGraphImage() {
         Rahul Gajbhiye
       </div>
       <div style={{ fontSize: 64, fontWeight: 700, lineHeight: 1.1 }}>
-        DevOps engineer and writer
+        Builder and teacher
       </div>
       <div style={{ fontSize: 28, marginTop: 24, color: "#cbd5e1" }}>
         Systems, product thinking, and practical engineering notes

@@ -115,11 +115,12 @@ This project currently has no required secrets. `.env*` is gitignored.
 
 After making changes, run the appropriate:
 
-- `pnpm lint`
-- `pnpm build` (this is the real compile/typecheck gate; there is no `tsc` script)
+- `pnpm build` (this is the compile/typecheck gate)
 - Browser or curl checks for routes you add or change
 
-There is **no test suite**. Do not claim tests passed. See `docs/TESTING.md`.
+`pnpm lint` currently fails on TypeScript 7 vs typescript-eslint. See `docs/TESTING.md`.
+
+There is **no test suite**. Do not claim tests passed.
 
 ## Documentation Maintenance
 

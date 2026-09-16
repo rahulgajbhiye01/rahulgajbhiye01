@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 // @ts-ignore
 import "./globals.css";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://rahulgajbhiye.com"),
@@ -57,7 +59,9 @@ export default function RootLayout({
     <html lang="en" id="top" data-scroll-behavior="smooth">
       <body>
         <div className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
+          <SiteHeader />
           {children}
+          <SiteFooter />
         </div>
       </body>
     </html>

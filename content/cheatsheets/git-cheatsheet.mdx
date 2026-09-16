@@ -1,0 +1,37 @@
+
+```bash
+# View all commits
+git log
+
+# View commits in a compact format
+git log --oneline
+
+# View commits as a graph
+git log --oneline --graph --decorate --all
+
+# View the last N commits
+git log --oneline 5
+
+# View commits by a specific author
+git log --author="John Doe"
+
+# View commits affecting a specific file
+git log --follow path/to/file
+
+# View the changes in each commit
+git log -p
+
+# Or for a specific commit:
+git show <commit-hash>
+
+# View commits since a date
+git log --since="1 week ago"
+
+git log --since="2026-08-01"
+
+# View commits on the current branch only
+git log
+
+# To compare branches:
+git log main..feature
+```

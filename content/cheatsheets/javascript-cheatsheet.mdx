@@ -1,0 +1,32 @@
+# JavaScript Cheatsheet
+
+## Input and Output
+
+```js
+// Simple one-line input
+import readline from "readline";
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+rl.question("Enter your name: ", (name) => {
+  console.log(`Hello, ${name}!`);
+  rl.close();
+});
+```
+
+```js
+// Modern async version
+import readline from "readline/promises";
+import { stdin as input, stdout as output } from "process";
+
+const rl = readline.createInterface({ input, output });
+
+const name = await rl.question("Enter your name: ");
+
+console.log(`Hello, ${name}`);
+
+rl.close();
+```

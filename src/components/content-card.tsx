@@ -11,8 +11,9 @@ type ContentLink = {
 type ContentCardProps = {
   href: string;
   title: string;
-  description: string;
-  category: string;
+  description?: string;
+  category?: string;
+  kind?: string;
   tags: readonly string[];
   date: string;
   readingTime: string;
@@ -25,6 +26,7 @@ export function ContentCard({
   title,
   description,
   category,
+  kind,
   tags,
   date,
   readingTime,
@@ -45,9 +47,11 @@ export function ContentCard({
               {title}
             </Link>
           </h3>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-            {description}
-          </p>
+          {description ? (
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
+              {description}
+            </p>
+          ) : null}
         </div>
 
         <p className="shrink-0 font-mono text-xs text-muted sm:pt-1">
@@ -57,7 +61,7 @@ export function ContentCard({
 
       <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-3">
         <span className="rounded-md border border-accent/50 px-2 py-1 font-mono text-xs text-accent">
-          {category}
+          {category ?? kind}
         </span>
 
         {links.map((link) => (

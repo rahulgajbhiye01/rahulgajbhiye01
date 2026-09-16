@@ -2,14 +2,23 @@ import Link from "next/link";
 
 import { ContentCard } from "@/components/content-card";
 import { getSelectedContentItems } from "@/lib/content";
-import { SiteHeader } from "@/components/site-header";
+import SubHeader from "@/components/sub-header";
 
 export default async function HomePage() {
   const selectedItems = await getSelectedContentItems();
 
   return (
     <main className="flex flex-col">
-      <SiteHeader />
+      <SubHeader />
+
+      <section aria-labelledby="hero" className="scroll-mt-8">
+        <h1
+          id="services"
+          className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-accent"
+        >
+          Services
+        </h1>
+      </section>
 
       <section aria-labelledby="hero" className="scroll-mt-8">
         <div className="mb-6 flex items-baseline justify-between gap-4">
@@ -17,7 +26,7 @@ export default async function HomePage() {
             id="hero"
             className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-accent"
           >
-            Selected work
+            Selected Projects
           </h1>
           <Link
             href="/archive"
@@ -27,21 +36,11 @@ export default async function HomePage() {
           </Link>
         </div>
         {selectedItems.map((item) => (
-          <ContentCard
-            key={item.slug}
-            href={`/${item.slug}`}
-            {...item}
-            compact
-          />
+          <ContentCard key={item.slug} href={item.route} {...item} compact />
         ))}
       </section>
 
       <div className="h-px bg-border" aria-hidden="true" />
-
-      <p className="max-w-3xl pt-6 pb-2 text-sm leading-7 text-muted">
-        A compact record of systems, notes, and product thinking—organized so
-        the work is easy to revisit and build on.
-      </p>
     </main>
   );
 }

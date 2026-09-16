@@ -104,7 +104,7 @@ function NativeCodeBlock({
         <span className="h-2 w-2 rounded-full bg-rose-400" />
         <span className="h-2 w-2 rounded-full bg-amber-400" />
         <span className="h-2 w-2 rounded-full bg-accent" />
-        <span className="ml-1">terminal</span>
+        <span className="ml-1">Terminal</span>
       </div>
       <pre
         {...props}

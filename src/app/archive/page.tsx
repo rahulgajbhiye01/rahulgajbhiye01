@@ -26,8 +26,8 @@ export default async function ArchivePage() {
           Archive
         </h1>
         <p className="mt-3 text-sm leading-7 text-muted">
-          A searchable archive of notes, experiments, and product thinking that
-          shaped the work.
+          A searchable archive of technical work, personal writing, and
+          favorites worth returning to.
         </p>
       </div>
       <ArchiveList

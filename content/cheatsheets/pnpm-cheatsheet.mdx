@@ -1,0 +1,63 @@
+# PNPM
+
+## Basics
+
+```bash
+# Check current version
+pnpm --version
+
+# Upgrade pnpm globally, If you use Corepack:
+corepack prepare pnpm@latest --activate
+
+# Pin the pnpm version for the project
+## From the project root:
+corepack use pnpm@latest
+```
+
+## Managing Dependencies
+
+### Local packages
+
+```bash
+# List packages installed in the current project:
+pnpm list
+
+# For direct dependencies only:
+pnpm list --depth 0
+
+# For a more compact tree:
+pnpm ls --depth 0
+
+# Check whether a specific package is installed locally:
+pnpm list <package-name>
+```
+### Global packages
+
+```bash
+# List globally installed packages:
+pnpm list -g
+
+# Direct global packages only:
+pnpm list -g --depth 0
+
+# Check whether a specific package is installed globally:
+pnpm list -g <package-name>
+
+# See where global packages are installed
+pnpm bin -g
+```
+
+### Updating Dependencies
+
+```bash
+# If you want to upgrade all dependencies in your project to their latest versions, use:
+pnpm update --latest
+## or the short version:
+pnpm up -L
+
+# Updates within the version ranges in package.json
+pnpm update	
+
+# Shows what can be updated
+pnpm outdated	
+```

@@ -17,18 +17,19 @@ export function ArchiveList({ items }: ArchiveListProps) {
   const [category, setCategory] = useState("All");
   const categories = [
     "All",
-    ...Array.from(new Set(items.map((item) => item.category))).sort(),
+    ...Array.from(new Set(items.map((item) => item.category ?? item.kind))).sort(),
   ];
 
   const filteredItems = useMemo(() => {
     const searchQuery = query.trim().toLowerCase();
 
     return items.filter((item) => {
-      const matchesCategory = category === "All" || item.category === category;
+      const itemCategory = item.category ?? item.kind;
+      const matchesCategory = category === "All" || itemCategory === category;
       const searchable = [
         item.title,
-        item.description,
-        item.category,
+        item.description ?? "",
+        itemCategory,
         ...item.tags,
       ]
         .join(" ")
@@ -91,7 +92,7 @@ export function ArchiveList({ items }: ArchiveListProps) {
       </p>
       <div className="mt-3 max-w-4xl">
         {filteredItems.map((item) => (
-          <ContentCard key={item.slug} href={`/${item.slug}`} {...item} />
+          <ContentCard key={item.route} href={item.route} {...item} />
         ))}
       </div>
       {filteredItems.length === 0 ? (

@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Rahul Gajbhiye — builder and teacher";
+export const alt = "Rahul Gajbhiye — a living archive";
 export const size = {
   width: 1200,
   height: 630,
@@ -16,20 +16,31 @@ export default function OpenGraphImage() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        padding: 64,
-        background: "linear-gradient(135deg, #020202 0%, #0f172a 100%)",
-        color: "white",
-        fontFamily: "sans-serif",
+        padding: 80,
+        background: "#faf7f5",
+        color: "#191715",
+        fontFamily: "Georgia, serif",
       }}
     >
-      <div style={{ fontSize: 28, color: "#34d399", marginBottom: 16 }}>
+      <div
+        style={{
+          fontSize: 72,
+          fontWeight: 500,
+          lineHeight: 1.05,
+          letterSpacing: "-0.03em",
+        }}
+      >
         Rahul Gajbhiye
       </div>
-      <div style={{ fontSize: 64, fontWeight: 700, lineHeight: 1.1 }}>
-        Builder and teacher
-      </div>
-      <div style={{ fontSize: 28, marginTop: 24, color: "#cbd5e1" }}>
-        Systems, product thinking, and practical engineering notes
+      <div
+        style={{
+          fontSize: 28,
+          marginTop: 28,
+          color: "#6a645e",
+          fontFamily: "sans-serif",
+        }}
+      >
+        A living archive.
       </div>
     </div>,
     {

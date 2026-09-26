@@ -1,0 +1,340 @@
+---
+kind: article
+title: Styling Methods in React Native
+description: How React Native styling differs from CSS, from StyleSheet and inline styles to NativeWind, styled-components, and design tokens.
+date: 2026-06-11
+selected: false
+draft: true
+tags: [React Native, Styling]
+---
+
+# Styling Methods in React Native
+
+When building a React Native application, styling works differently from styling a traditional web application.
+
+If you're coming from React for the web, you might expect to write CSS files, use CSS classes, or directly use browser-specific properties. React Native doesn't work that way. Instead, styles are represented as JavaScript objects and translated into native iOS and Android UI properties.
+
+There are several approaches you can use, ranging from React Native's built-in `StyleSheet` to third-party solutions such as NativeWind and styled-components.
+
+Let's look at the major approaches and when you should use each one.
+
+## 1. StyleSheet — The Standard Approach
+
+The most common and recommended starting point is React Native's built-in `StyleSheet`.
+
+```jsx
+import { StyleSheet, View, Text } from "react-native";
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Hello</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: "#fff",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+});
+```
+
+Here, `StyleSheet.create()` contains the styles used by the components.
+
+This approach has several advantages:
+
+- Styles are separated from the component markup.
+- Styles can be reused.
+- Editors provide good autocomplete and validation.
+- It follows the standard React Native styling model.
+- It is easy to understand when working on a larger codebase.
+
+For someone learning React Native, this is the approach I would recommend learning first.
+
+---
+
+## 2. Inline Styles
+
+React Native also allows you to define styles directly inside the `style` prop.
+
+```jsx
+<View
+  style={{
+    padding: 20,
+    backgroundColor: "black",
+  }}
+>
+  <Text style={{ color: "white" }}>Hello</Text>
+</View>
+```
+
+Inline styles are useful when a style is small or depends directly on some piece of state.
+
+For example:
+
+```jsx
+<Text style={{ color: isActive ? "green" : "gray" }}>
+  Status
+</Text>
+```
+
+However, using inline styles everywhere can make components difficult to read and maintain.
+
+A good rule is:
+
+> Use inline styles for small or highly dynamic styles, not as the primary styling strategy for an entire application.
+
+---
+
+## 3. Combining Styles with Arrays
+
+React Native allows multiple styles to be combined using an array.
+
+```jsx
+<View
+  style={[
+    styles.card,
+    isSelected && styles.selectedCard,
+  ]}
+/>
+```
+
+This is particularly useful for conditional styling.
+
+For example:
+
+```jsx
+const styles = StyleSheet.create({
+  card: {
+    padding: 20,
+    borderRadius: 12,
+    backgroundColor: "white",
+  },
+
+  selectedCard: {
+    borderWidth: 2,
+    borderColor: "green",
+  },
+});
+```
+
+When `isSelected` is true, both styles are applied.
+
+You can also mix static styles with dynamic values:
+
+```jsx
+<View
+  style={[
+    styles.card,
+    { backgroundColor: backgroundColor },
+  ]}
+/>
+```
+
+This pattern is extremely common in React Native applications.
+
+---
+
+## 4. Platform-Specific Styling
+
+React Native applications usually target multiple platforms, primarily iOS and Android.
+
+Sometimes the same style doesn't make sense on both platforms.
+
+React Native provides the `Platform` API for these situations.
+
+```jsx
+import { Platform, StyleSheet } from "react-native";
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: Platform.OS === "ios" ? 50 : 20,
+  },
+});
+```
+
+You can also use platform-specific files.
+
+For example:
+
+```text
+Button.ios.tsx
+Button.android.tsx
+```
+
+React Native can automatically select the appropriate implementation.
+
+This becomes useful when a component needs genuinely different platform behavior rather than simply a different color or spacing value.
+
+---
+
+# 5. CSS-Like Styling Libraries
+
+If you've spent a lot of time working with web technologies, you might prefer a styling approach that feels closer to CSS.
+
+Several libraries provide this experience.
+
+Popular options include:
+
+- NativeWind
+- styled-components
+- Emotion
+- Tamagui
+
+## NativeWind
+
+NativeWind brings a Tailwind-style approach to React Native.
+
+For example:
+
+```jsx
+<View className="flex-1 bg-black items-center justify-center">
+  <Text className="text-white text-2xl font-bold">
+    Hello
+  </Text>
+</View>
+```
+
+Instead of creating a JavaScript style object, you use utility classes.
+
+This can be attractive if you're already comfortable with Tailwind CSS.
+
+---
+
+## styled-components
+
+Another option is `styled-components`, which provides a CSS-in-JS style of development.
+
+The idea is to create styled components rather than manually attaching style objects.
+
+This can make components feel more similar to styled React web applications.
+
+The trade-off is that you're introducing another abstraction and dependency into your application.
+
+---
+
+# 6. Design Tokens and Themes
+
+As an application grows, another problem appears.
+
+You don't want values like this scattered throughout your entire codebase:
+
+```jsx
+backgroundColor: "#121212"
+padding: 17
+borderRadius: 13
+```
+
+Instead, you can define reusable design tokens.
+
+```js
+const colors = {
+  primary: "#10B981",
+  background: "#0A0A0A",
+  text: "#FFFFFF",
+  muted: "#888888",
+};
+
+const spacing = {
+  xs: 4,
+  sm: 8,
+  md: 16,
+  lg: 24,
+  xl: 32,
+};
+```
+
+Then your styles can reference those values:
+
+```jsx
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: colors.background,
+    padding: spacing.lg,
+    borderRadius: 12,
+  },
+});
+```
+
+This makes it much easier to maintain a consistent visual language across the application.
+
+It also makes future changes easier.
+
+For example, changing your primary color from one place can update the entire application.
+
+---
+
+# Which Approach Should You Use?
+
+There isn't one styling method that is universally best.
+
+It depends on the size of your application, your team's preferences, and your existing knowledge.
+
+| Approach | Best For |
+| --- | --- |
+| `StyleSheet` | Standard React Native applications |
+| Inline styles | Small or dynamic styles |
+| Style arrays | Conditional/composed styles |
+| `Platform` | iOS/Android differences |
+| NativeWind | Developers who prefer Tailwind |
+| styled-components | CSS-in-JS workflows |
+| Emotion | CSS-in-JS and reusable styling |
+| Tamagui | Larger cross-platform design systems |
+| Design tokens/themes | Consistent large applications |
+
+---
+
+# What Should You Learn First?
+
+If you're new to React Native, I wouldn't start by installing a styling library.
+
+Start with the fundamentals:
+
+```text
+StyleSheet
+    ↓
+style prop
+    ↓
+style arrays
+    ↓
+conditional styles
+    ↓
+Platform-specific styles
+    ↓
+themes & design tokens
+    ↓
+third-party styling libraries
+```
+
+Understanding React Native's native styling system first gives you a much better foundation for evaluating libraries later.
+
+Once you understand the underlying model, choosing between something like `StyleSheet` and NativeWind becomes a preference and architectural decision rather than something you blindly follow.
+
+## The Important Mental Model
+
+The biggest thing to remember when coming from web development is:
+
+> React Native styling is not browser CSS.
+
+The general flow is:
+
+```text
+React Component
+       ↓
+     style
+       ↓
+React Native style object
+       ↓
+Native iOS / Android UI
+```
+
+Once this mental model clicks, React Native styling becomes much easier to reason about.
+
+For most projects, **start with `StyleSheet`, use inline styles and style arrays where appropriate, introduce design tokens as the application grows, and add a third-party styling library only when it solves a real problem.**

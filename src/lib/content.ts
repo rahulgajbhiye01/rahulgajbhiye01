@@ -1,5 +1,8 @@
-import { readdir, readFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
+
+import fg from "fast-glob";
+import readingTime from "reading-time";
 
 import {
   booleanValue,
@@ -8,61 +11,61 @@ import {
   stringArray,
 } from "@/lib/frontmatter";
 import type { Frontmatter } from "@/lib/frontmatter";
+import { firstHeading } from "@/lib/headings";
 
 export type ContentLink = {
   href: string;
   label: string;
 };
 
-export type ContentKind =
-  | "project"
-  | "article"
-  | "cheatsheet"
-  | "poetry"
-  | "gear";
+export type ContentKind = "project" | "article";
+export type ContentSection = "projects" | "writing" | "cheatsheets";
 
 export type ContentItem = {
   slug: string;
   id: string;
   kind: ContentKind;
-  section: ContentKind;
+  section: ContentSection;
   route: string;
   title: string;
-  description?: string;
+  description: string;
   category?: string;
   tags: string[];
   date?: string;
+  updated?: string;
+  image?: string;
   readingTime: string;
   links: ContentLink[];
   selected: boolean;
+  status?: string;
   author?: string;
   source?: string;
   content: string;
 };
 
 const contentDirectory = path.join(process.cwd(), "content");
-const wordsPerMinute = 200;
 
-export const kindRoutes: Record<ContentKind, string> = {
-  project: "projects",
-  article: "articles",
-  cheatsheet: "cheatsheets",
-  poetry: "poetry",
-  gear: "gear",
-};
-
-export const allowedRouteKinds = new Set(Object.values(kindRoutes));
+const reservedSlugs = new Set([
+  "about",
+  "archive",
+  "article",
+  "articles",
+  "projects",
+  "work",
+  "writing",
+  "cheatsheets",
+]);
 
 const folderToKind: Record<string, ContentKind> = {
   projects: "project",
   project: "project",
+  work: "project",
+  notes: "article",
   articles: "article",
   article: "article",
   blog: "article",
-  cheatsheets: "cheatsheet",
-  cheatsheet: "cheatsheet",
-  poetry: "poetry",
-  gear: "gear",
+  cheatsheets: "article",
+  cheatsheet: "article",
 };
 
 function normalizeKind(value: string | undefined): ContentKind | undefined {
@@ -71,19 +74,33 @@ function normalizeKind(value: string | undefined): ContentKind | undefined {
 }
 
 function getReadingTime(content: string) {
-  const words = content
-    .replace(/```[\s\S]*?```/g, "")
-    .replace(/<[^>]+>/g, " ")
-    .match(/[\p{L}\p{N}]+(?:['-][\p{L}\p{N}]+)*/gu);
-  const minutes = Math.max(1, Math.ceil((words?.length ?? 0) / wordsPerMinute));
-
-  return `${minutes} min read`;
+  return readingTime(content).text;
 }
 
-function titleFromHeading(content: string) {
-  const withoutCode = content.replace(/```[\s\S]*?```/g, "");
-  const match = withoutCode.match(/^#\s+(.+)$/m);
-  return match?.[1]?.trim();
+function titleFromSlug(slug: string) {
+  return slug
+    .replace(/[-_]+/g, " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function descriptionFromContent(content: string) {
+  const paragraph = content
+    .split(/\r?\n\s*\r?\n/)
+    .map((block) => block.trim())
+    .find((block) => block && !block.startsWith("#") && !block.startsWith("```"));
+
+  if (!paragraph) return undefined;
+
+  const text = paragraph
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/!\[([^\]]*)\]\([^)]+\)/g, "$1")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/[*_`>#]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (!text) return undefined;
+  return text.length > 160 ? `${text.slice(0, 157).trimEnd()}…` : text;
 }
 
 function getLinks(frontmatter: Frontmatter) {
@@ -110,33 +127,12 @@ function getContentKind(
   );
 }
 
-async function getContentFiles(dir = contentDirectory): Promise<string[]> {
-  const entries = await readdir(dir, { withFileTypes: true });
-
-  const files = await Promise.all(
-    entries.map(async (entry) => {
-      const fullPath = path.join(dir, entry.name);
-
-      if (entry.isDirectory()) {
-        if (entry.name.startsWith("_")) return [];
-        return getContentFiles(fullPath);
-      }
-
-      if (
-        entry.isFile() &&
-        !entry.name.startsWith("_") &&
-        /\.(md|mdx)$/i.test(entry.name)
-      ) {
-        return [
-          path.relative(contentDirectory, fullPath).split(path.sep).join("/"),
-        ];
-      }
-
-      return [];
-    }),
-  );
-
-  return files.flat();
+async function getContentFiles(): Promise<string[]> {
+  return fg(["**/*.md", "**/*.mdx"], {
+    cwd: contentDirectory,
+    ignore: ["**/_*", "**/_*/**"],
+    onlyFiles: true,
+  });
 }
 
 async function readContent(
@@ -147,31 +143,68 @@ async function readContent(
 
   if (!source.trim()) return undefined;
 
-  const filePath = `content/${relativeFilePath}`;
-  const { frontmatter, content } = parseMdx(source, filePath);
+  const { frontmatter, content } = parseMdx(source);
+  const declaredKind = optionalString(frontmatter, "kind");
+
+  if (booleanValue(frontmatter, "draft")) return undefined;
+
   const kind = getContentKind(relativeFilePath, frontmatter);
-  if (!kind) return undefined;
+  if (!kind) {
+    console.warn(
+      `[content] skipped ${relativeFilePath}: set kind: article or kind: project to publish, or draft: true to keep it off the site.`,
+    );
+    return undefined;
+  }
 
   const slug = path.basename(relativeFilePath, path.extname(relativeFilePath));
-  const title =
-    optionalString(frontmatter, "title") ??
-    titleFromHeading(content) ??
-    slug;
+
+  if (reservedSlugs.has(slug)) {
+    console.warn(
+      `[content] skipped ${relativeFilePath}: "${slug}" is reserved for site routes.`,
+    );
+    return undefined;
+  }
+
+  const declaredTitle = optionalString(frontmatter, "title") ?? firstHeading(content);
+  const title = declaredTitle ?? titleFromSlug(slug);
+  const description =
+    optionalString(frontmatter, "description") ?? descriptionFromContent(content);
+
+  if (!declaredTitle) {
+    console.warn(`[seo] ${relativeFilePath}: add a descriptive title to the frontmatter.`);
+  }
+  if (!optionalString(frontmatter, "description")) {
+    console.warn(`[seo] ${relativeFilePath}: add a custom search description; using an excerpt until then.`);
+  }
+  const folder = relativeFilePath.split("/")[0];
+  const isCheatsheet =
+    declaredKind === "cheatsheet" ||
+    folder === "cheatsheet" ||
+    folder === "cheatsheets" ||
+    optionalString(frontmatter, "category")?.toLowerCase() === "cheatsheet" ||
+    /cheat[-_]?sheet/i.test(slug);
+  const section: ContentSection =
+    kind === "project" ? "projects" : isCheatsheet ? "cheatsheets" : "writing";
 
   return {
     slug,
     id: `${kind}/${slug}`,
     kind,
-    section: kind,
-    route: `/${kindRoutes[kind]}/${slug}`,
+    section,
+    route: `/${section}/${slug}`,
     title,
-    description: optionalString(frontmatter, "description"),
-    category: optionalString(frontmatter, "category") ?? kind,
+    description: description ?? `${title} by Rahul Gajbhiye.`,
+    category:
+      optionalString(frontmatter, "category") ??
+      (isCheatsheet ? "Cheatsheet" : kind),
     tags: stringArray(frontmatter, "tags"),
     date: optionalString(frontmatter, "date"),
+    updated: optionalString(frontmatter, "updated"),
+    image: optionalString(frontmatter, "image"),
     readingTime: getReadingTime(content),
     links: getLinks(frontmatter),
     selected: booleanValue(frontmatter, "selected"),
+    status: optionalString(frontmatter, "status"),
     author: optionalString(frontmatter, "author"),
     source: optionalString(frontmatter, "source"),
     content,
@@ -195,6 +228,16 @@ export async function getContentItems(
     (item): item is ContentItem => Boolean(item),
   );
 
+  const slugs = new Set<string>();
+  for (const item of contentItems) {
+    if (slugs.has(item.slug)) {
+      throw new Error(
+        `[content] duplicate published slug "${item.slug}"; each entry needs a unique slug for legacy URL redirects.`,
+      );
+    }
+    slugs.add(item.slug);
+  }
+
   return contentItems
     .filter((item) => matchesKinds(item, kinds))
     .sort((first, second) => {
@@ -215,6 +258,44 @@ export async function getContentItem(slug: string, kind?: ContentKind) {
   return contentItems.find((item) => item.slug === slug);
 }
 
+export async function getContentItemBySection(
+  section: ContentSection,
+  slug: string,
+) {
+  const items = await getContentItems();
+  return items.find((item) => item.section === section && item.slug === slug);
+}
+
 export async function getSelectedContentItems() {
-  return (await getContentItems("project")).filter((item) => item.selected);
+  return (await getContentItems()).filter((item) => item.selected);
+}
+
+export function getAdjacentItems(items: ContentItem[], slug: string) {
+  const index = items.findIndex((item) => item.slug === slug);
+  if (index < 0) {
+    return { previous: undefined, next: undefined };
+  }
+
+  return {
+    previous: items[index + 1],
+    next: items[index - 1],
+  };
+}
+
+export function entryTypeLabel(
+  item: Pick<ContentItem, "kind" | "category" | "slug" | "title">,
+) {
+  if (item.kind === "project") return "Project";
+
+  const category = item.category?.trim();
+  if (category && category.toLowerCase() !== "article" && category.toLowerCase() !== item.kind) {
+    return category;
+  }
+
+  const haystack = `${item.slug} ${item.title}`.toLowerCase();
+  if (haystack.includes("cheatsheet") || haystack.includes("cheat-sheet")) {
+    return "Cheatsheet";
+  }
+
+  return "Note";
 }

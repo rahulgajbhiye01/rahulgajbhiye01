@@ -1,20 +1,24 @@
 import type { Metadata } from "next";
 
-import { KindListPage } from "@/components/collection-page";
+import { ContentCollection } from "@/components/content-collection";
+import { entryTypeLabel, getContentItems } from "@/lib/content";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Writing",
-  description:
-    "Articles and cheatsheets on systems, software delivery, and practical engineering.",
-};
+  description: "Notes and practical guides by Rahul Gajbhiye on software, infrastructure, and engineering work.",
+  pathname: "/writing",
+});
 
-export default function WritingPage() {
+export default async function WritingPage() {
+  const allArticles = await getContentItems("article");
+  const items = allArticles.filter((item) => entryTypeLabel(item) !== "Cheatsheet");
+
   return (
-    <KindListPage
-      kinds={["article", "cheatsheet"]}
+    <ContentCollection
       title="Writing"
-      description="Long-form notes and practical references. Articles and cheatsheets live here; permalinks stay on their own paths."
-      emptyMessage="No writing published yet."
+      description="Notes and practical guides on software, infrastructure, and engineering work."
+      items={items}
     />
   );
 }

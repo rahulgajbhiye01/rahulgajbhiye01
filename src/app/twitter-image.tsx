@@ -14,16 +14,33 @@ export default function TwitterImage() {
         width: "100%",
         height: "100%",
         display: "flex",
-        alignItems: "center",
+        flexDirection: "column",
         justifyContent: "center",
-        background: "linear-gradient(135deg, #10b981 0%, #020202 100%)",
-        color: "white",
-        fontFamily: "sans-serif",
-        padding: 64,
+        padding: 80,
+        background: "#faf7f5",
+        color: "#191715",
+        fontFamily: "Georgia, serif",
       }}
     >
-      <div style={{ fontSize: 72, fontWeight: 700, textAlign: "center" }}>
+      <div
+        style={{
+          fontSize: 72,
+          fontWeight: 500,
+          lineHeight: 1.05,
+          letterSpacing: "-0.03em",
+        }}
+      >
         Rahul Gajbhiye
+      </div>
+      <div
+        style={{
+          fontSize: 28,
+          marginTop: 28,
+          color: "#6a645e",
+          fontFamily: "sans-serif",
+        }}
+      >
+        A living archive.
       </div>
     </div>,
     {

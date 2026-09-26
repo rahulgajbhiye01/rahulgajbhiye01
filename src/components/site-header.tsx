@@ -1,48 +1,18 @@
 import Link from "next/link";
 
+import { SiteNav } from "@/components/site-nav";
+
 export function SiteHeader() {
   return (
-    <header className="enter flex flex-col gap-5 pb-4 pt-2 sm:pb-5 sm:pt-2">
-      <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-col items-start gap-1 sm:gap-2">
-          <h1>
-            <Link
-              href="/"
-              className="text-4xl font-semibold tracking-tight text-foreground transition-colors duration-200 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-            >
-              Rahul Gajbhiye
-            </Link>
-          </h1>
-          <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.14em] text-muted">
-            <span className="font-bold">Builder</span>
-            <span aria-hidden="true">/</span>
-            <span>Teacher</span>
-          </div>
-        </div>
-        <nav aria-label="Primary" className="w-full sm:w-auto">
-          <ul className="flex min-w-max items-center gap-5 pb-1 sm:gap-4 sm:pb-0">
-            <li>
-              <Link href="/projects" className="text-muted hover:text-foreground">
-                Projects
-              </Link>
-            </li>
-            <li>
-              <Link href="/writing" className="text-muted hover:text-foreground">
-                Writing
-              </Link>
-            </li>
-            <li>
-              <Link href="/services" className="text-muted hover:text-foreground">
-                Services
-              </Link>
-            </li>
-            <li>
-              <Link href="/about" className="text-muted hover:text-foreground">
-                About
-              </Link>
-            </li>
-          </ul>
-        </nav>
+    <header className="sticky top-0 z-30 border-b border-border bg-background">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-8 lg:px-12">
+        <Link
+          href="/"
+          className="font-serif text-[1.15rem] tracking-tight text-foreground transition-opacity duration-200 hover:opacity-70 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
+        >
+          Rahul Gajbhiye
+        </Link>
+        <SiteNav />
       </div>
     </header>
   );

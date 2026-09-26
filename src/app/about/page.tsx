@@ -1,52 +1,32 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "About",
-  description:
-    "Rahul Gajbhiye builds software and writes about systems, delivery, and product craft.",
-};
+import { MdxContent } from "@/components/mdx-content";
+import { PageHeader } from "@/components/page-header";
+import { ReadingColumn } from "@/components/reading-column";
+import { getAbout } from "@/lib/site";
+import { JsonLd } from "@/components/json-ld";
+import { pageMetadata, profileJsonLd } from "@/lib/seo";
 
-export default function AboutPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const about = await getAbout();
+
+  return pageMetadata({
+    title: about.title,
+    description: about.description ?? "About Rahul Gajbhiye, software builder and writer.",
+    pathname: "/about",
+  });
+}
+
+export default async function AboutPage() {
+  const about = await getAbout();
+
   return (
-    <main className="flex flex-col py-10 sm:py-14">
-      <Link
-        href="/"
-        className="text-sm text-muted transition-colors duration-200 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-      >
-        ← Back to home
-      </Link>
-
-      <h1 className="mt-6 font-mono text-xs font-medium uppercase tracking-[0.18em] text-accent">
-        About
-      </h1>
-      <div className="mt-6 max-w-2xl space-y-5 text-sm leading-7 text-muted">
-        <p>
-          I build dependable software and the systems around it. This site is
-          the home for that work: apps, writing, and how to work with me. It is
-          not a resume.
-        </p>
-        <p>
-          I care about product thinking, engineering craft, and the practical
-          details that keep delivery moving. Notes here are meant to stay useful
-          for years, not only for a news cycle.
-        </p>
-        <p>
-          Personal writing lives in{" "}
-          <Link href="/poetry" className="text-foreground hover:text-accent">
-            poetry
-          </Link>{" "}
-          and the{" "}
-          <Link href="/archive" className="text-foreground hover:text-accent">
-            archive
-          </Link>
-          . Tools I use will live on{" "}
-          <Link href="/gear" className="text-foreground hover:text-accent">
-            gear
-          </Link>
-          .
-        </p>
-      </div>
+    <main className="enter flex flex-col">
+      <JsonLd data={profileJsonLd()} />
+      <PageHeader title={about.title} />
+      <ReadingColumn className="mt-8">
+        <MdxContent source={about.content} pageTitle={about.title} />
+      </ReadingColumn>
     </main>
   );
 }

@@ -1,33 +1,19 @@
-import { FaGithub, FaLink } from "react-icons/fa6";
-
 type ExternalLinkBadgeProps = {
   href: string;
   label: string;
 };
 
-function getLinkIcon(label: string) {
-  const normalizedLabel = label.toLowerCase();
-
-  if (normalizedLabel.includes("github") || normalizedLabel.includes("repo")) {
-    return <FaGithub />;
-  }
-
-  return <FaLink />;
-}
-
 export function ExternalLinkBadge({ href, label }: ExternalLinkBadgeProps) {
+  const sponsored = label.toLowerCase().includes("affiliate");
+
   return (
     <a
       href={href}
       target="_blank"
-      rel={label.toLowerCase().includes("affiliate") ? "sponsored noopener noreferrer" : "noopener noreferrer"}
-      aria-label={label}
-      title={label}
-      className="py-1 font-mono text-muted"
+      rel={sponsored ? "sponsored noopener noreferrer" : "noopener noreferrer"}
+      className="font-mono text-xs text-muted underline decoration-border underline-offset-4 transition-colors duration-200 hover:text-foreground hover:decoration-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
     >
-      <span className="shrink-0 text-lg text-muted transition-colors duration-200 hover:text-accent">
-        {getLinkIcon(label)}
-      </span>
+      {label}
     </a>
   );
 }

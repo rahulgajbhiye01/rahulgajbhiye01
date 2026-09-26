@@ -1,105 +1,87 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { FiSearch } from "react-icons/fi";
+import { useState } from "react";
 
-import { ContentCard } from "@/components/content-card";
-import type { ContentItem } from "@/lib/content";
+import { EntryRow } from "@/components/entry-row";
+import type { ContentSection } from "@/lib/content";
 
-type ContentSummary = Omit<ContentItem, "content">;
+type ArchiveCategory = "all" | ContentSection;
 
-type ArchiveListProps = {
-  items: ContentSummary[];
+export type ArchiveEntry = {
+  id: string;
+  href: string;
+  section: ContentSection;
+  title: string;
+  description?: string;
+  date?: string;
+  type?: string;
+  readingTime?: string;
 };
 
-export function ArchiveList({ items }: ArchiveListProps) {
+export function ArchiveList({ entries }: { entries: ArchiveEntry[] }) {
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("All");
-  const categories = [
-    "All",
-    ...Array.from(new Set(items.map((item) => item.category ?? item.kind))).sort(),
-  ];
-
-  const filteredItems = useMemo(() => {
-    const searchQuery = query.trim().toLowerCase();
-
-    return items.filter((item) => {
-      const itemCategory = item.category ?? item.kind;
-      const matchesCategory = category === "All" || itemCategory === category;
-      const searchable = [
-        item.title,
-        item.description ?? "",
-        itemCategory,
-        ...item.tags,
-      ]
+  const [category, setCategory] = useState<ArchiveCategory>("all");
+  const needle = query.trim().toLowerCase();
+  const visible = entries.filter((entry) => {
+    const matchesCategory = category === "all" || entry.section === category;
+    const matchesQuery =
+      !needle ||
+      [entry.title, entry.description, entry.type]
+        .filter(Boolean)
         .join(" ")
-        .toLowerCase();
-
-      return (
-        matchesCategory && (!searchQuery || searchable.includes(searchQuery))
-      );
-    });
-  }, [category, items, query]);
+        .toLowerCase()
+        .includes(needle);
+    return matchesCategory && matchesQuery;
+  });
 
   return (
     <div>
-      <div className="border-y border-border py-5">
-        <div className="rounded-md border border-border/70 bg-background/70 px-4 py-3 shadow-sm backdrop-blur-sm transition-all duration-200 focus-within:border-accent focus-within:bg-background focus-within:shadow-md">
-          <div className="flex items-center gap-3">
-            <FiSearch className="h-4 w-4 shrink-0 text-muted" />
-            <label className="sr-only" htmlFor="archive-search">
-              Search the archive
-            </label>
-            <input
-              id="archive-search"
-              type="search"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search notes, projects, and cheatsheets"
-              className="w-full bg-transparent text-sm text-foreground outline-none transition-colors placeholder:text-muted/80"
+      <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_14rem]">
+        <label className="block">
+          <span className="sr-only">Search the archive</span>
+          <input
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search"
+            className="w-full border border-border bg-transparent px-3 py-2 text-sm text-foreground outline-none placeholder:text-muted focus-visible:ring-1 focus-visible:ring-foreground"
+          />
+        </label>
+        <label className="block">
+          <span className="sr-only">Filter by category</span>
+          <select
+            value={category}
+            onChange={(event) => setCategory(event.target.value as ArchiveCategory)}
+            className="w-full border border-border bg-background px-3 py-2 text-sm text-foreground outline-none focus-visible:ring-1 focus-visible:ring-foreground"
+          >
+            <option value="all">All entries</option>
+            <option value="projects">Projects</option>
+            <option value="writing">Writing</option>
+            <option value="cheatsheets">Cheatsheets</option>
+          </select>
+        </label>
+      </div>
+      {visible.length > 0 ? (
+        <div className="mt-8">
+          {visible.map((entry) => (
+            <EntryRow
+              key={entry.id}
+              href={entry.href}
+              title={entry.title}
+              description={entry.description}
+              date={entry.date}
+              type={entry.type}
+              readingTime={entry.readingTime}
             />
-          </div>
+          ))}
         </div>
-        <div
-          className="mt-4 flex flex-wrap gap-2"
-          aria-label="Filter by category"
-        >
-          {categories.map((itemCategory) => {
-            const isActive = category === itemCategory;
-
-            return (
-              <button
-                key={itemCategory}
-                type="button"
-                onClick={() => setCategory(itemCategory)}
-                aria-pressed={isActive}
-                className={`rounded-md border px-2 py-1 font-mono text-xs transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
-                  isActive
-                    ? "border-accent bg-accent text-accent-foreground"
-                    : "border-border text-muted hover:border-muted hover:text-foreground"
-                }`}
-              >
-                {itemCategory}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      <p className="pt-5 font-mono text-xs text-muted" aria-live="polite">
-        {filteredItems.length}{" "}
-        {filteredItems.length === 1 ? "entry" : "entries"}
-      </p>
-      <div className="mt-3 max-w-4xl">
-        {filteredItems.map((item) => (
-          <ContentCard key={item.route} href={item.route} {...item} />
-        ))}
-      </div>
-      {filteredItems.length === 0 ? (
-        <p className="py-12 text-sm text-muted">
-          No entries match that search.
+      ) : (
+        <p className="mt-8 text-sm leading-7 text-muted">
+          {category === "all"
+            ? "No entries match your search."
+            : `No entries match your search in ${category}.`}
         </p>
-      ) : null}
+      )}
     </div>
   );
 }

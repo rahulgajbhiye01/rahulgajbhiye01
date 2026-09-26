@@ -1,19 +1,23 @@
 import type { Metadata } from "next";
 
-import { KindListPage } from "@/components/collection-page";
+import { ContentCollection } from "@/components/content-collection";
+import { getContentItems } from "@/lib/content";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Projects",
-  description: "Apps and products by Rahul Gajbhiye.",
-};
+  description: "Software and experiments built by Rahul Gajbhiye.",
+  pathname: "/projects",
+});
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const items = await getContentItems("project");
+
   return (
-    <KindListPage
-      kinds="project"
+    <ContentCollection
       title="Projects"
-      description="Software I am building and shipping. Writeups appear here when a project is ready to share."
-      emptyMessage="No project writeups yet. Check back as apps go public."
+      description="Software and experiments built by Rahul Gajbhiye."
+      items={items}
     />
   );
 }

@@ -1,100 +1,93 @@
-import Link from "next/link";
+import { CurrentlyList } from "@/components/currently-list";
+import { EntryRow } from "@/components/entry-row";
+import { SectionHeading } from "@/components/section-heading";
+import { entryTypeLabel, getSelectedContentItems } from "@/lib/content";
+import { getSite } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
 
-import { ContentCard } from "@/components/content-card";
-import SubHeader from "@/components/sub-header";
-import {
-  getContentItems,
-  getSelectedContentItems,
-} from "@/lib/content";
+export const metadata = pageMetadata({
+  title: "Rahul Gajbhiye",
+  description:
+    "Rahul Gajbhiye builds software and writes about engineering, infrastructure, and the systems behind the work.",
+  pathname: "/",
+});
+
+const elsewhere = [
+  { href: "https://www.github.com/rahulgajbhiye01", label: "GitHub" },
+  { href: "https://www.x.com/rahulgajbhiye01", label: "X" },
+  { href: "https://www.instagram.com/rahulgajbhiye01", label: "Instagram" },
+  { href: "https://www.linkedin.com/in/rahulgajbhiye01", label: "LinkedIn" },
+  { href: "https://www.youtube.com/@rahulgajbhiye01", label: "YouTube" },
+] as const;
 
 export default async function HomePage() {
-  const [selectedProjects, writing] = await Promise.all([
+  const [site, selected] = await Promise.all([
+    getSite(),
     getSelectedContentItems(),
-    getContentItems(["article", "cheatsheet"]),
   ]);
-  const latestWriting = writing.slice(0, 4);
 
   return (
-    <main className="flex flex-col">
-      <SubHeader />
+    <main className="enter flex flex-col">
+      <div>
+        <h1 className="max-w-xl font-serif text-[2rem] leading-[1.18] tracking-[-0.03em] text-foreground sm:text-[2.35rem] lg:text-[2.75rem] lg:leading-[1.12]">
+          {site.tagline}
+        </h1>
+        <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2">
+          {site.collaborate ? (
+            <li>
+              <a
+                href={site.collaborate.href}
+                {...(site.collaborate.href.startsWith("mailto:")
+                  ? {}
+                  : { target: "_blank", rel: "noopener noreferrer" })}
+                className="text-sm text-muted transition-colors duration-200 hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
+              >
+                {site.collaborate.label}
+              </a>
+            </li>
+          ) : null}
+          {elsewhere.map((item) => (
+            <li key={item.href}>
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-muted transition-colors duration-200 hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
 
-      <section aria-labelledby="services-heading" className="scroll-mt-8">
-        <div className="mb-6 flex items-baseline justify-between gap-4">
-          <h2
-            id="services-heading"
-            className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-accent"
-          >
-            Services
-          </h2>
-          <Link
-            href="/services"
-            className="text-sm text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-          >
-            Work with me <span aria-hidden="true">→</span>
-          </Link>
+      <section aria-labelledby="currently-heading" className="mt-20 lg:mt-32">
+        <SectionHeading id="currently-heading">Currently</SectionHeading>
+        <div className="mt-6">
+          <CurrentlyList />
         </div>
-        <p className="mb-10 max-w-2xl text-sm leading-7 text-muted">
-          I help ship dependable software and the systems around it. If that is
-          what you need, start on the services page.
-        </p>
       </section>
 
-      <section aria-labelledby="projects-heading" className="scroll-mt-8">
-        <div className="mb-6 flex items-baseline justify-between gap-4">
-          <h2
-            id="projects-heading"
-            className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-accent"
-          >
-            Selected Projects
-          </h2>
-          <Link
-            href="/projects"
-            className="text-sm text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-          >
-            All projects <span aria-hidden="true">→</span>
-          </Link>
-        </div>
-        {selectedProjects.length > 0 ? (
-          selectedProjects.map((item) => (
-            <ContentCard key={item.slug} href={item.route} {...item} compact />
-          ))
+      <section aria-labelledby="selected-heading" className="mt-12 lg:mt-16">
+        <SectionHeading id="selected-heading">Selected</SectionHeading>
+        {selected.length > 0 ? (
+          <div className="mt-6">
+            {selected.map((item) => (
+              <EntryRow
+                key={item.id}
+                href={item.route}
+                title={item.title}
+                description={item.description}
+                type={entryTypeLabel(item)}
+              />
+            ))}
+          </div>
         ) : (
-          <p className="mb-10 text-sm leading-7 text-muted">
-            Project writeups will show up here when they are ready to share.
+          <p className="mt-6 text-sm leading-7 text-muted">
+            Nothing selected yet.
           </p>
         )}
       </section>
-
-      <section aria-labelledby="writing-heading" className="scroll-mt-8">
-        <div className="mb-6 flex items-baseline justify-between gap-4">
-          <h2
-            id="writing-heading"
-            className="font-mono text-xs font-medium uppercase tracking-[0.18em] text-accent"
-          >
-            Latest writing
-          </h2>
-          <Link
-            href="/writing"
-            className="text-sm text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-          >
-            All writing <span aria-hidden="true">→</span>
-          </Link>
-        </div>
-        {latestWriting.map((item) => (
-          <ContentCard key={item.id} href={item.route} {...item} compact />
-        ))}
-      </section>
-
-      <p className="mt-10 text-sm text-muted">
-        <Link
-          href="/gear"
-          className="transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-        >
-          Tools I use
-        </Link>
-      </p>
-
-      <div className="mt-10 h-px bg-border" aria-hidden="true" />
     </main>
   );
 }

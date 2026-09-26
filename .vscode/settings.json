@@ -1,0 +1,13 @@
+{
+    "terminal.integrated.env.linux": {
+        "PATH": "/home/rahul/.nvm/versions/node/v24.19.0/bin:${env:PATH}"
+    },
+    "cSpell.words": [
+        "Cheatsheet",
+        "cheatsheets",
+        "Delulu",
+        "Gajbhiye",
+        "Rahul",
+        "rahulgajbhiye"
+    ]
+}

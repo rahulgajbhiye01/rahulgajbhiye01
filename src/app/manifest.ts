@@ -5,11 +5,11 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Rahul Gajbhiye",
     short_name: "Rahul",
     description:
-      "Portfolio and writing site for Rahul Gajbhiye, covering DevOps, systems thinking, and product engineering.",
+      "A living archive of what Rahul Gajbhiye builds, learns, and documents.",
     start_url: "/",
     display: "standalone",
-    background_color: "#020202",
-    theme_color: "#10b981",
+    background_color: "#faf7f5",
+    theme_color: "#faf7f5",
     icons: [
       {
         src: "/icon.png",

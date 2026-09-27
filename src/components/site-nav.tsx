@@ -13,7 +13,7 @@ export function SiteNav() {
 
   return (
     <nav aria-label="Primary">
-      <ul className="flex flex-wrap items-center justify-end gap-x-3 gap-y-2 sm:gap-x-5">
+      <ul className="flex flex-nowrap items-center justify-end gap-x-3 sm:gap-x-5">
         {nav.map((item) => {
           const current =
             pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -23,7 +23,7 @@ export function SiteNav() {
               <Link
                 href={item.href}
                 aria-current={current ? "page" : undefined}
-                className={`group relative text-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground ${
+                className={`group relative whitespace-nowrap text-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground ${
                   current
                     ? "text-foreground"
                     : "text-muted hover:text-foreground"
